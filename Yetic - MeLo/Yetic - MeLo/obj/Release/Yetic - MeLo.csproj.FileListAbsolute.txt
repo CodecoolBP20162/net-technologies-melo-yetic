@@ -1,0 +1,14 @@
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\bin\Release\Yetic - MeLo.exe.config
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\bin\Release\Yetic - MeLo.exe
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\bin\Release\Yetic - MeLo.pdb
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\obj\Release\MainWindow.g.cs
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\obj\Release\App.g.cs
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\obj\Release\Yetic - MeLo_MarkupCompile.cache
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\obj\Release\Yetic - MeLo_MarkupCompile.lref
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\obj\Release\MainWindow.baml
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\obj\Release\Yetic - MeLo.g.resources
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\obj\Release\Yetic___MeLo.Properties.Resources.resources
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\obj\Release\Yetic - MeLo.csproj.GenerateResource.Cache
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\obj\Release\Yetic - MeLo.exe
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\obj\Release\Yetic - MeLo.pdb
+C:\Users\David\Documents\Visual Studio 2017\Projects\Serializer\Yetic - MeLo\Yetic - MeLo\obj\Release\Yetic - MeLo.csprojResolveAssemblyReference.cache
