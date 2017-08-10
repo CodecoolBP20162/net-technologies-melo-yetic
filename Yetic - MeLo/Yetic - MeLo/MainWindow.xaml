@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Yetic___MeLo"
         mc:Ignorable="d"
-        Title="MediaLocator" Height="500" Width="700" MinHeight="400" MinWidth="540" Background="#FFF0E7E7" WindowStyle="None" SizeToContent="WidthAndHeight" AllowsTransparency="True" ResizeMode="CanResizeWithGrip" >
-    <Border BorderBrush="Transparent" BorderThickness="1,1,1,1" CornerRadius="20">
-        <Grid Background="#ECF0F1">
+        Title="MediaLocator" Height="500" Width="700" MinHeight="500" MinWidth="540" Background="#FFF0E7E7" WindowStyle="None" SizeToContent="WidthAndHeight" AllowsTransparency="True" Icon="logo.png" ResizeMode="CanResizeWithGrip" >
+    <Border>
+        <Grid Background="#ECF0F1" >
             <Grid.RowDefinitions>
                 <RowDefinition MinHeight="50" MaxHeight="32" ></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -16,12 +16,14 @@
                 <ColumnDefinition Width="240" MinWidth="200"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid Background="#BDC3C7" Grid.Row="0" Grid.Column="1"></Grid>
-            <Grid Background="#2980B9" Grid.Row="0"/>
+            <Grid Background="#BDC3C7" Grid.Row="0" Grid.Column="1">
+
+            </Grid>
+            <Grid Background="#2980B9" Grid.Row="0" />
             <Grid Background="#2980B9" Grid.Row="1">
             </Grid>
-            <Image HorizontalAlignment="Left" Height="73" VerticalAlignment="Top" Width="78" Source="logo.png" Margin="10,10,0,0" Grid.RowSpan="2"/>
-            <Label Content="YETIC&#xD;&#xA;MELO" HorizontalAlignment="Left" Margin="108,10,0,0" VerticalAlignment="Top" Foreground="#ECF0F1" Grid.RowSpan="2" Height="73" FontFamily="Segoe UI Black" FontSize="24" Width="86" FontWeight="Bold"/>
+            <Image HorizontalAlignment="Left" Height="73" VerticalAlignment="Top" Width="78" Source="logo.png" Margin="29,10,0,0" Grid.RowSpan="2"/>
+            <Label Content="YETIC&#xD;&#xA;MELO" HorizontalAlignment="Left" Margin="122,10,0,0" VerticalAlignment="Top" Foreground="#ECF0F1" Grid.RowSpan="2" Height="73" FontFamily="Segoe UI Black" FontSize="24" Width="86" FontWeight="Bold"/>
             <Image Margin="31,102.4,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Source="folder-green.png" Height="32" Width="40" Grid.Row="1" RenderTransformOrigin="0.5,0.5"/>
             <Image Margin="31,60.4,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Source="settings-3-512.png" Height="37" Width="31" Grid.Row="1" RenderTransformOrigin="0.5,0.5"/>
             <Label Margin="76,64,0,0" Content="GENERAL SETTINGS" HorizontalAlignment="Left" FontFamily="Segoe UI Light" FontSize="14" Foreground="#ECF0F1"  VerticalAlignment="Top" Grid.Row="1" Height="27" Width="141" FontWeight="Bold"   />
@@ -29,6 +31,40 @@
             <Image Margin="29,158,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Source="MetroUI_Windows8_Photos.png" Height="40" Width="42" Grid.Row="1" RenderTransformOrigin="0.5,0.5"/>
             <Image Margin="168,160,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Source="Video-Google-Docs-windows-8-metro-style.png" Height="38" Width="40" Grid.Row="1" RenderTransformOrigin="0.5,0.5"/>
             <Image Margin="99,158,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Source="Apps-Google-Music-Metro-icon copy.png" Height="38" Width="38" Grid.Row="1" RenderTransformOrigin="0.5,0.5"/>
+            <WrapPanel Name="wpPlayer" Grid.Column="1" HorizontalAlignment="Left" Height="448" Margin="0,0.4,-0.4,-0.4" Grid.Row="1" VerticalAlignment="Top" Width="458"/>
+            <Button HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,10,10,0" Padding="2" Name="closeWindow" Click="closeWindow_Click" Grid.Column="1" Background="Transparent" BorderThickness="0" >
+                <Image Source="close (1).png"  Width="30" Height="28" />
+            </Button>
+
+            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,51.6,0" Grid.Column="1" Name="btnFullScreen" Click="fullScreen_Click" Background="Transparent" BorderThickness="0">
+                <Image Source="fullsc.png"  Width="34" Height="28" />
+            </Button>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,51.6,0" Grid.Column="1" Name="btnOriginalScreen" Click="originalScreen_Click" Background="Transparent" BorderThickness="0" Visibility="Hidden">
+                <Image Source="reverse.png" Width="28" Height="28"/>
+            </Button>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,7,91.6,0" Grid.Column="1" Name="btnTaskBar" Click="taskBar_Click" Background="Transparent" BorderThickness="0" >
+                <Image Source="down.png" Width="32" Height="35" />
+            </Button>
+
+            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FF15405D" Opacity="1" Margin="0,0,0,0" Grid.Row="1" MinWidth="240" MinHeight="170">
+                <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="60,140,0,0" Name="btnPrev" Click="btnPrev_Click_1" Background="#FF15405D" BorderThickness="0" >
+                    <Image Height="20" Source="left.png"  Width="20"/>
+                </Button>
+                <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30,0,0,0" Name="btnPlay" Click="btnPlay_Click" Background="Transparent" BorderThickness="0" >
+                    <Image Height="20" Source="play.png"  Width="20" VerticalAlignment="Center"/>
+                </Button>
+
+                <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20,0,0,0" Name="btnNext" Click="btnNext_Click" Background="Transparent" BorderThickness="0" >
+                    <Image Height="20" Source="right.png"  Width="20"/>
+                </Button>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,-54,0" Name="btnPlayerFullScreen" Click="btnPlayerFullScreen_Click" Background="Transparent"  BorderThickness="0" Height="21" Width="28">
+                    <Image Grid.Row="1" Source="fullsc_white.png"/>
+                </Button>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="-10,10,0,0" Name="btnPutDown" Click="btnPlayerFullScreen_Click" Background="Transparent"  BorderThickness="0" Height="21" Width="28">
+                    <Image Grid.Row="1" Source="down_white.png"/>
+                </Button>
+            </WrapPanel>
+
         </Grid>
     </Border>
 </Window>
