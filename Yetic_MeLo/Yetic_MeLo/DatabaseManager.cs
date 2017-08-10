@@ -26,12 +26,26 @@ namespace Yetic_MeLo
             Execute(query);
         }
 
+        void UpdateFolderTable(int id, string path, bool isVideo, bool isPicture, bool isMusic)
+        {
+            string query = "UPDATE Folder SET Path = '" + path + "', isVideo = '" + isVideo + "', isPicture = '" + isPicture + "', isMusic = '" + isMusic + "' WHERE Id = " + id + ";";
+            Execute(query);
+        }
+
+
         // Settings Table
         void AddNewRowToSettingsTable(string category, string extension, bool check)
         {
             string query = "INSERT INTO Settings VALUES('" + category + "','" + extension + "','" + check + "')";            
             Execute(query);
         }
+
+        void UpdateSettingsTable(int id, string category, string extension, bool check)
+        {
+            string query = "UPDATE Folder SET Category = '" + category + "', Extension = '" + extension + "', Check = '" + check + "' WHERE Id = " + id + ";";
+            Execute(query);
+        }
+
 
         // Delete Row
         void DeleteRowFromTable(string table, int id)
