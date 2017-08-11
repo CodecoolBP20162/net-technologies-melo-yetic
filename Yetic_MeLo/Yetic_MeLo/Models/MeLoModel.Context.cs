@@ -25,8 +25,6 @@ namespace Yetic_MeLo.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<MeLoDBEntity> MeLoDBEntitySet { get; set; }
-        public virtual DbSet<asd> asdSet { get; set; }
         public virtual DbSet<FoldersSet> FoldersSet { get; set; }
         public virtual DbSet<MeloDBEntitySet> MeloDBEntitySet1 { get; set; }
         public virtual DbSet<SettingsSet> SettingsSet { get; set; }
