@@ -25,6 +25,11 @@ namespace Yetic_MeLo
             InitializeComponent();
         }
 
-
+        void OpenMediaPlayer(object sender, EventArgs e)
+        {
+            MediaPlayer player = new MediaPlayer();
+            //should pass the path of the file here from the main form probably
+            player.Show();
+        }
     }
 }
