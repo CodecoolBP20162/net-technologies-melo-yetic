@@ -25,6 +25,12 @@ namespace Yetic_MeLo
             InitializeComponent();
         }
 
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //string testFile = "..\\..\\mp3\\Radiorama - Yeti (album version).mp3";
+            string[] trimmedFiles= new string[] { "..\\..\\mp3\\test.mp3", "..\\..\\mp3\\test1.mp3" };
+            //if (Mp3Editor.TrimMp3(testFile, "..\\..\\mp3\\test1.mp3",TimeSpan.FromMinutes(2.5), TimeSpan.FromMinutes(3))) MessageBox.Show("trim done");
+            if (Mp3Editor.Mp3Concat(trimmedFiles,"..\\..\\mp3\\testCombined.mp3")) MessageBox.Show("concat done");
+        }
     }
 }
