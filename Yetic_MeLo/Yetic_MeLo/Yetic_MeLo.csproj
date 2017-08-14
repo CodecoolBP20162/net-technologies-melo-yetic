@@ -87,21 +87,36 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="EntityManager.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\FoldersSet.cs">
+      <DependentUpon>MeLoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MeloDBEntitySet.cs">
+      <DependentUpon>MeLoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MeLoModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MeLoModel.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MeLoModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MeLoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MeLoModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MeLoModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SettingsSet.cs">
+      <DependentUpon>MeLoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -152,6 +167,13 @@
     <Content Include="Models\MeLoModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MeLoModel.Context.cs</LastGenOutput>
+      <DependentUpon>MeLoModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\MeLoModel.edmx.sql" />
+    <Content Include="Models\MeLoModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MeLoModel.cs</LastGenOutput>
+      <DependentUpon>MeLoModel.edmx</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
