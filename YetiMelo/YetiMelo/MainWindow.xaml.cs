@@ -25,5 +25,49 @@ namespace YetiMelo
             InitializeComponent();
         }
 
+        private void btClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btResize_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState != WindowState.Maximized) { this.WindowState = WindowState.Maximized; }
+            else { this.WindowState = WindowState.Normal; }
+
+        }
+
+        private void btPutOnTray_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+        
+
+        private void btSettings_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 wind = new Window1();
+            wind.Show();
+        }
+
+        private void btAddFolder_Click(object sender, RoutedEventArgs e)
+        {
+            Add_folder af = new Add_folder();
+            af.Show();
+        }
+
+        private void btRemoveFolder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btCutMp3_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btForgeMp3_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

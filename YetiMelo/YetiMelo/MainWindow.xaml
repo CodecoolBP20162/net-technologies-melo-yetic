@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YetiMelo"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="550" MinWidth="800"
+        Title="Yetic's MeLo" MinHeight="550" MinWidth="800"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -13,17 +13,17 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        FontFamily="{DynamicResource MaterialDesignFont}" Icon="logo.png" WindowStartupLocation="CenterScreen" WindowState="Minimized" WindowStyle="None" BorderThickness="4" BorderBrush="Transparent" SnapsToDevicePixels="False">
 
 
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2.5*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
@@ -31,21 +31,34 @@
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.15*" ></RowDefinition>
+                <RowDefinition Height="0.15*"></RowDefinition>
                 <RowDefinition Height="2*"></RowDefinition>
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0">
                 <DockPanel LastChildFill="False" >
                     <Border BorderBrush="#2f2929" BorderThickness="2,0,0,0"></Border>
-                    <TextBox Width="100" VerticalAlignment="Center" Margin="4,2,4,2" Padding="8,2,8,2" TextWrapping="Wrap" Text="Search" Foreground="DarkGray" TextAlignment="Center"/>
-                    <Button DockPanel.Dock="Left" Padding="4" Margin="8,1,1,1">Search</Button>
+                    <TextBox Padding="-1" VerticalAlignment="Center" Margin="4,2"  TextWrapping="Wrap" Text="Search" Width="100" Foreground="DarkGray" TextAlignment="Center"/>
+                    <Button DockPanel.Dock="Left" Padding="4" Margin="8,1">Search</Button>
                     <CheckBox DockPanel.Dock="Right" Margin="4,2,10,2" VerticalAlignment="Center" >Music</CheckBox>
                     <CheckBox DockPanel.Dock="Right" Margin="4,2,4,2"  VerticalAlignment="Center" >Video</CheckBox>
                     <CheckBox DockPanel.Dock="Right" Margin="4,2,4,2"  VerticalAlignment="Center" >Image</CheckBox>
                 </DockPanel>
             </Border>
-            <Border Grid.Row="1" Background="#d6cece" BorderBrush="#2f2929" BorderThickness="2,0,0,0">
-                <DataGrid/>
+            <Border Grid.Row="1" BorderBrush="#2f2929" BorderThickness="2,0,0,0">
+                <DockPanel LastChildFill="False">
+                    <TextBlock Padding="10,0,0,0" DockPanel.Dock="Left" VerticalAlignment="Center"> Order by:</TextBlock>
+                    <RadioButton Padding="4,0,10,0" DockPanel.Dock="Right" VerticalAlignment="Center"> ABC </RadioButton>
+                    <RadioButton Padding="4,0,4,0" DockPanel.Dock="Right" VerticalAlignment="Center"> Type </RadioButton>
+                    <RadioButton Padding="4,0,4,0" DockPanel.Dock="Right" VerticalAlignment="Center"> Size </RadioButton>
+                </DockPanel>
+            </Border>
+            <Border Grid.Row="2" Background="#d6cece" BorderBrush="#2f2929" BorderThickness="2,0,0,0">
+                <DataGrid>
+                    <DataGrid.Columns>
+                        <DataGridHyperlinkColumn/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Border>
 
         </Grid>
@@ -53,7 +66,7 @@
 
         <Grid Grid.Column="0" Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"></RowDefinition>
+                <RowDefinition Height="0.4*"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
@@ -63,9 +76,44 @@
                 </Border>
             </Border>
 
-            <Border Grid.Row="1">
-                <Border Background="#2f2929"></Border>
-            </Border>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="7*"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0">
+                    <DockPanel>
+                        <MediaElement></MediaElement>
+                    </DockPanel>
+                </Border>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Row="1" Grid.ColumnSpan="2">
+                        <DockPanel LastChildFill="False" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            <Button VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,4,4,4">⏮</Button>
+                            <Button VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,4,4,4">▶</Button>
+                            <Button VerticalAlignment="Center"  HorizontalAlignment="Center" Margin="4,4,4,4" Visibility="Collapsed">⏸</Button>
+                            <Button VerticalAlignment="Center" Margin="4,4,4,4">⏩</Button>
+                        </DockPanel>
+                    </Border>
+
+                    <Border Grid.Column="1">
+                        <DockPanel LastChildFill="False" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                            <Button DockPanel.Dock="Left" VerticalAlignment="Center" Margin="4,4,10,4" Padding="8">🔊</Button>
+                            <Button DockPanel.Dock="Left" VerticalAlignment="Center" Margin="4,4,10,4" Visibility="Collapsed" Padding="8">🔇</Button>
+                        </DockPanel>
+                    </Border>
+                </Grid>
+            </Grid>
+             
+            
+            
         </Grid>
 
         <Border Grid.Row="0" Grid.ColumnSpan="2" BorderThickness="0,0,0,2" BorderBrush="DarkGray">
@@ -83,16 +131,24 @@
                 <Image Source="logo.png"/>
                 <TextBlock Padding="8,0,0,0" VerticalAlignment="Center" FontFamily="Segoe UI BOLD"  Foreground="White">YETIC'S MELO</TextBlock>
             </DockPanel>
-            <Button Padding="8" Margin="2,2,4,2" Background="Transparent" BorderThickness="0">Manage Folders</Button>
-            <Button Padding="8" Margin="2,2,4,2" Background="Transparent" BorderThickness="0">Settings</Button>
-            <Button Padding="8" Margin="2,2,4,2" Background="Transparent" BorderThickness="0">Edit MP3</Button>
-            <Button DockPanel.Dock="Right" Height="30" VerticalAlignment="Top">X</Button>
-            <Button DockPanel.Dock="Right" Height="30" VerticalAlignment="Top">FS</Button>
-            <Button DockPanel.Dock="Right" Height="30" VerticalAlignment="Top">__</Button>
-
+            <Menu DockPanel.Dock="Left" Background="Transparent" VerticalAlignment="Center" Foreground="White" Height="auto">
+                <MenuItem Name="btSettings" Header="Settings" Padding="5,4" Margin="50,0,0,0"   Height="auto" BorderThickness="0,0,0.5,0" BorderBrush="#2f2929" Click="btSettings_Click">
+                </MenuItem>
+                <MenuItem Visibility="Visible" Header="Folder control" Padding="5,4" Height="auto" BorderThickness="0,0,0.5,0" BorderBrush="#2f2929">
+                    <MenuItem Name="btAddFolder" Click="btAddFolder_Click" Header="Add folder" Background="#3b1b64" Padding="10,4" Margin="0,-10,0,0"></MenuItem>
+                    <MenuItem Name="btRemoveFolder" Click="btRemoveFolder_Click" Header="Remove folder" Background="#3b1b64" Padding="10,4"></MenuItem>
+                </MenuItem>
+                <MenuItem Header="Edit MP3" Padding="5,4" Height="auto">
+                    <MenuItem Header="Cut MP3" Name="btCutMp3" Click="btCutMp3_Click" Background="#3b1b64" Padding="10,4" Margin="0,-10,0,0"></MenuItem>
+                    <MenuItem Header="Concat MP3" Name="btForgeMp3" Click="btForgeMp3_Click" Background="#3b1b64" Padding="10,4"></MenuItem>
+                </MenuItem>
+            </Menu>
+            <Button DockPanel.Dock="Right" Name="btClose" Click="btClose_Click" Height="20" Width="20" VerticalAlignment="Top" Padding="0">x</Button>
+            <Button DockPanel.Dock="Right" Name="btResize" Click="btResize_Click" Height="20" Padding="-2" Width="20" VerticalAlignment="Top">⃣</Button>
+            <Button DockPanel.Dock="Right" Name="btPutOnTray" Click="btPutOnTray_Click" Height="20" Padding="-2" Width="20" VerticalAlignment="Top">_</Button>
 
         </DockPanel>
-        <MediaElement HorizontalAlignment="Left" Height="273" Margin="0,151.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="381" Grid.ColumnSpan="2"/>
+        
 
 
     </Grid>
