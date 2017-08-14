@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+
 
 namespace FileSelector
 {
@@ -11,13 +13,25 @@ namespace FileSelector
     {
         FileSystemWatcher watcher;
         public List<string> AllowedExtensions { get; set; }
+        
+        //it could be anything, and we can use popup window or something
+        ListBox NotificationTarget;
+        //Need to get the mainform for threads to work properly
+        MainWindow ParentForm;
 
         public FolderWatcher() { }
 
-        public void WatchFolder(string Path, List<string> AllowedExtensions)
+        public FolderWatcher(ListBox target)
+        {
+            this.NotificationTarget = target;
+        }
+
+        public void WatchFolder(string Path, List<string> AllowedExtensions, ListBox NotificationTarget, MainWindow MainForm)
         {
             watcher = new FileSystemWatcher();
+            this.NotificationTarget = NotificationTarget;
             this.AllowedExtensions = AllowedExtensions;
+            this.ParentForm = MainForm;
             watcher.Path = Path;
             watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                          | NotifyFilters.FileName | NotifyFilters.DirectoryName;
@@ -29,10 +43,26 @@ namespace FileSelector
 
         private void OnCreated(object sender, FileSystemEventArgs e)
         {
-            if (AllowedExtensions.Contains(Path.GetExtension(e.FullPath).ToLower()))
+            string CreatedFileName = e.Name;
+            FileInfo createdFile = new FileInfo(CreatedFileName);
+            string extension = createdFile.Extension;
+            string eventoccured = e.ChangeType.ToString();
+
+            try
             {
-                Console.WriteLine("File created:");
-                Console.WriteLine(e.FullPath);
+                if (AllowedExtensions.Contains(System.IO.Path.GetExtension(e.FullPath).ToLower()))
+                {
+                    ParentForm.Dispatcher.Invoke((Action)(() =>
+                    {
+                        {
+                            NotificationTarget.Items.Add(string.Format("File created at: {0}", e.FullPath));
+                        }
+                    }));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
 
         }
