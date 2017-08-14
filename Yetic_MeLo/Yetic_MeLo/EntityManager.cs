@@ -9,14 +9,14 @@ namespace Yetic_MeLo
 {
     class EntityManager
     {
-        // Add to Folders
-        public void AddToFolders(int id, string path, bool music, bool pics, bool video)
+        // Folders //
+        // Add
+        public void AddToFolders(string path, bool music, bool pics, bool video)
         {
             using (var db = new MeLoModelContainer())
             {
                 var folder = new FoldersSet
                 {
-                    Id = id,
                     Path = path,
                     Music = music,
                     Picture = pics,
@@ -27,39 +27,66 @@ namespace Yetic_MeLo
             }
         }
 
-        // Select from Folders
-        public IQueryable SelectFromFolders()
+        // Select
+        public IQueryable SelectFromFolders(int id)
         {
             using (var db = new MeLoModelContainer())
             {
-                var query = from b in db.FoldersSet
-                            select b;
-                return query;
+                if(id != 0)
+                {
+                    var query = from b in db.FoldersSet
+                                where b.Id == id
+                                select b;
+                    return query;
+                }
+                else
+                {
+                    throw new Exception("There is no entity with the given Id: " + id);
+                }
             }
         }
 
-        // Delete from Folders
-        public void DeleteFromFolders(int id)
+        // Update
+        public void UpdateFromFolders(int id, string newPath, bool newMusic, bool newPicture, bool newVideo)
         {
             using (var db = new MeLoModelContainer())
             {
-                var row = new FoldersSet { Id = id };
-                db.FoldersSet.Remove(row);
+                var rowToUpdate = db.FoldersSet.Find(id);
+                rowToUpdate.Path = newPath;
+                rowToUpdate.Music = newMusic;
+                rowToUpdate.Picture = newPicture;
+                rowToUpdate.Video = newVideo;
                 db.SaveChanges();
             }
         }
 
-        //
-        //
-        //
-        // Add to Settings
-        public void AddTosettings(int id, string category, string extension, bool check)
+        // Delete 
+        public void DeleteFromFolders(int id)
+        {
+            using (var db = new MeLoModelContainer())
+            {
+                if(db.FoldersSet.Find(id) != null)
+                {
+                    var row = db.FoldersSet.Find(id);
+                    db.FoldersSet.Remove(row);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("There is no entity with the given Id: " + id);
+                }
+               
+            }
+        }
+
+        // Settings //
+        // Add
+        public void AddTosettings(string category, string extension, bool check)
         {
             using (var db = new MeLoModelContainer())
             {
                 var setting = new SettingsSet
                 {
-                    Id = id,
                     Category = category,
                     Extension = extension,
                     Check = check
@@ -69,25 +96,54 @@ namespace Yetic_MeLo
             }
         }
 
-        // Select from Settings
+        // Select 
         public IQueryable SelectFromSettings(int id)
         {
             using (var db = new MeLoModelContainer())
             {
-                var query = from b in db.SettingsSet
-                            select b;
-                return query;
+                if (id != 0)
+                {
+                    var query = from b in db.SettingsSet
+                                where b.Id == id
+                                select b;
+                    return query;
+                }
+                else
+                {
+                    throw new Exception("There is no entity with the given Id: " + id);
+                }
             }
         }
 
-        // Delete from Settings
+        // Update
+        public void UpdateFromSettings(int id, string newCategory, string newExtension, bool newCheck)
+        {
+            using (var db = new MeLoModelContainer())
+            {
+                var rowToUpdate = db.SettingsSet.Find(id);
+                rowToUpdate.Category = newCategory;
+                rowToUpdate.Extension = newExtension;
+                rowToUpdate.Check = newCheck;
+                db.SaveChanges();
+            }
+        }
+
+        // Delete 
         public void DeleteFromSettings(int id)
         {
             using (var db = new MeLoModelContainer())
             {
-                var row = new SettingsSet { Id = id };
-                db.SettingsSet.Remove(row);
-                db.SaveChanges();
+                if (db.SettingsSet.Find(id) != null)
+                {
+                    var row = db.SettingsSet.Find(id);
+                    db.SettingsSet.Remove(row);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("There is no entity with the given Id: " + id);
+                }
+
             }
         }
     }

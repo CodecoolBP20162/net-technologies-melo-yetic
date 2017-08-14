@@ -28,9 +28,9 @@ namespace Yetic_MeLo
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             EntityManager db = new EntityManager();
-            db.AddToFolders(00, "thisisapath", true, false, true);
-            db.AddToFolders(01, "thisisananotherpath", false, true, true);
-            db.DeleteFromFolders(00);
+            db.AddToFolders("thisisapath", true, false, true);
+            db.AddToFolders("thisisananotherpath", false, true, true);
+            db.DeleteFromFolders(2);
         }
     }
 }
