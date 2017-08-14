@@ -28,9 +28,12 @@ namespace Yetic_MeLo
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             EntityManager db = new EntityManager();
+            db.TruncateTable("FoldersSet");
             db.AddToFolders("thisisapath", true, false, true);
             db.AddToFolders("thisisananotherpath", false, true, true);
             db.DeleteFromFolders(2);
+            db.UpdateFromFolders(1, "banana", false, false, false);
+            Console.WriteLine(db.SelectFromFolders(1));
         }
     }
 }
