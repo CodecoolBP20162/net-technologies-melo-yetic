@@ -57,17 +57,20 @@ namespace YetiMelo
 
         private void btRemoveFolder_Click(object sender, RoutedEventArgs e)
         {
-
+            RemoveFolder rf = new RemoveFolder();
+            rf.Show();
         }
 
         private void btCutMp3_Click(object sender, RoutedEventArgs e)
         {
-
+            CutMp3 cm = new CutMp3();
+            cm.Show();
         }
 
         private void btForgeMp3_Click(object sender, RoutedEventArgs e)
         {
-
+            MergeMp3 mm = new MergeMp3();
+            mm.Show();
         }
     }
 }

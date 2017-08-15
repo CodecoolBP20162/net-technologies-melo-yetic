@@ -22,6 +22,22 @@ namespace YetiMelo
         public RemoveFolder()
         {
             InitializeComponent();
+            FillFolders();
+        }
+
+        private void FillFolders()
+        {
+            ///please insert here to loader query
+        }
+
+        private void btRemoveFolder_Click(object sender, RoutedEventArgs e)
+        {
+            ///please insert here the removing logic
+        }
+
+        private void btClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

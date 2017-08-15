@@ -41,16 +41,16 @@
                     <TextBox Padding="-1" VerticalAlignment="Center" Margin="4,2"  TextWrapping="Wrap" Text="Search" Width="100" Foreground="DarkGray" TextAlignment="Center"/>
                     <Button DockPanel.Dock="Left" Padding="4" Margin="8,1">Search</Button>
                     <CheckBox DockPanel.Dock="Right" Margin="4,2,10,2" VerticalAlignment="Center" >Music</CheckBox>
-                    <CheckBox DockPanel.Dock="Right" Margin="4,2,4,2"  VerticalAlignment="Center" >Video</CheckBox>
-                    <CheckBox DockPanel.Dock="Right" Margin="4,2,4,2"  VerticalAlignment="Center" >Image</CheckBox>
+                    <CheckBox DockPanel.Dock="Right" Margin="4,2,6,2"  VerticalAlignment="Center" >Video</CheckBox>
+                    <CheckBox DockPanel.Dock="Right" Margin="4,2,6,2"  VerticalAlignment="Center" >Image</CheckBox>
                 </DockPanel>
             </Border>
             <Border Grid.Row="1" BorderBrush="#2f2929" BorderThickness="2,0,0,0">
                 <DockPanel LastChildFill="False">
                     <TextBlock Padding="10,0,0,0" DockPanel.Dock="Left" VerticalAlignment="Center"> Order by:</TextBlock>
                     <RadioButton Padding="4,0,10,0" DockPanel.Dock="Right" VerticalAlignment="Center"> ABC </RadioButton>
-                    <RadioButton Padding="4,0,4,0" DockPanel.Dock="Right" VerticalAlignment="Center"> Type </RadioButton>
-                    <RadioButton Padding="4,0,4,0" DockPanel.Dock="Right" VerticalAlignment="Center"> Size </RadioButton>
+                    <RadioButton Padding="4,0,8,0" DockPanel.Dock="Right" VerticalAlignment="Center"> Type </RadioButton>
+                    <RadioButton Padding="4,0,8,0" DockPanel.Dock="Right" VerticalAlignment="Center"> Size </RadioButton>
                 </DockPanel>
             </Border>
             <Border Grid.Row="2" Background="#d6cece" BorderBrush="#2f2929" BorderThickness="2,0,0,0">
