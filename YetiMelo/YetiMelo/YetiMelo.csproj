@@ -73,6 +73,7 @@
     <Compile Include="MediaPlayer.xaml.cs">
       <DependentUpon>MediaPlayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MediaPlayerController.cs" />
     <Compile Include="MergeMp3.xaml.cs">
       <DependentUpon>MergeMp3.xaml</DependentUpon>
     </Compile>
