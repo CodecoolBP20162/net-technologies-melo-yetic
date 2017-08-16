@@ -23,32 +23,23 @@ namespace YetiMelo
     /// </summary>
     public partial class MainWindow : Window
     {
-        int selectedIndexListView;
-        List<string> FileList;
+        int selectedIndexListView = 0;
+        List<string> FilesFromFolders;
         FolderWatcher watcher;
-
-        List<string> playList = new List<string>
-        {
-            "E:\\Test\\01.jpg" , "E:\\Test\\02.jpg" , "E:\\Test\\03.jpg",
-            "E:\\Test\\01.mp3" , "E:\\Test\\02.mp3" , "E:\\Test\\03.mp3",
-            "E:\\Test\\01.mp4" , "E:\\Test\\02.mp4" , "E:\\Test\\03.mp4"
-        };
-
-        int playListPosition = 0;
-        bool isPlaying = false;
+        MediaPlayerController MedCont;
 
         public MainWindow()
         {
             InitializeComponent();
             myMedia.Volume = 100;
-            InitPlayer();
 
             FolderScanner scanner = new FolderScanner();
-            List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", };
-            List<string> folders = new List<string> { "E:\\Test", "E:\\Test2" };
-            FileList = scanner.GetFiles(folders, AllowedExtensions);
+
+            List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", };//query form DB
+            List<string> folders = new List<string> { "E:\\Test", "E:\\Test2" };//query form DB
+            FilesFromFolders = scanner.GetFiles(folders, AllowedExtensions);
             List<CustomFileInfo> FileInfoList = new List<CustomFileInfo>();
-            foreach (string item in FileList)
+            foreach (string item in FilesFromFolders)
             {
                 CustomFileInfo file = new CustomFileInfo(new FileInfo(item));
                 FileInfoList.Add(file);
@@ -59,29 +50,26 @@ namespace YetiMelo
 
             watcher = new FolderWatcher();
 
+            Loaded += MyWindow_Loaded;
+        }
+
+        private void MyWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            MedCont = new MediaPlayerController(this, myMedia, FilesFromFolders, 0);
 
         }
+
 
         private void FileListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedIndexListView = FileListView.SelectedIndex;
+            MedCont.PlayPosition = FileListView.SelectedIndex;
         }
 
         private void FileListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MediaPlayer player = new MediaPlayer(selectedIndexListView, FileList);
+            MediaPlayer player = new MediaPlayer(selectedIndexListView, FilesFromFolders);
             player.Show();
-        }
-        
-
-        void UpdatePlayList(List<string> list)
-        {
-            playList = list;
-        }
-
-        void InitPlayer()
-        {
-            myMedia.Source = new Uri(playList[playListPosition], UriKind.Relative);
         }
 
         void MediaPlay(Object sender, EventArgs e)
@@ -92,17 +80,17 @@ namespace YetiMelo
 
         void TogglePlay(Object sender, EventArgs e)
         {
-            if (!isPlaying)
+            if (!MedCont.IsPlaying)
             {
                 myMedia.Play();
-                isPlaying = true;
+                MedCont.IsPlaying = true;
                 PlayButton.Visibility = Visibility.Collapsed;
                 PauseButton.Visibility = Visibility.Visible;
             }
             else
             {
                 myMedia.Pause();
-                isPlaying = false;
+                MedCont.IsPlaying = false;
                 PauseButton.Visibility = Visibility.Collapsed;
                 PlayButton.Visibility = Visibility.Visible;
             }
@@ -110,35 +98,17 @@ namespace YetiMelo
 
         void PlayNext(Object sender, EventArgs e)
         {
-            try
-            {
-                playListPosition++;
-                myMedia.Source = new Uri(playList[playListPosition], UriKind.Relative);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            MedCont.PlayNext();
         }
 
         void PlayPrevious(Object sender, EventArgs e)
         {
-            try
-            {
-                playListPosition--;
-                myMedia.Source = new Uri(playList[playListPosition], UriKind.Relative);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            MedCont.PlayPrevious();
         }
 
         void MediaPause(Object sender, EventArgs e)
         {
             myMedia.Pause();
-            //btnPlay.Visibility = Visibility.Visible;
-            //btnPause.Visibility = Visibility.Collapsed;
         }
 
         void MediaMute(Object sender, EventArgs e)
@@ -173,7 +143,7 @@ namespace YetiMelo
         {
             this.WindowState = WindowState.Minimized;
         }
-        
+
 
         private void btSettings_Click(object sender, RoutedEventArgs e)
         {
