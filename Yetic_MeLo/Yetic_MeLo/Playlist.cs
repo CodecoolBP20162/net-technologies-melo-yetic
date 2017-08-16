@@ -9,16 +9,19 @@ namespace Yetic_MeLo
 {
     class Playlist
     {
-        ArrayList Songs;
+        public ArrayList Songs;
+        public string PlaylistName;
 
-        public Playlist(string[] Songs)
+        public Playlist(string[] Songs, string PlaylistName)
         {
             this.Songs = new ArrayList(Songs);
+            this.PlaylistName = PlaylistName;
         }
 
-        public Playlist(ArrayList Songs)
+        public Playlist(ArrayList Songs, string PlaylistName)
         {
             this.Songs = Songs;
+            this.PlaylistName = PlaylistName;
         }
 
         public void RemoveSong(string SongToRemove)
