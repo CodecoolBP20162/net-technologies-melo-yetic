@@ -13,9 +13,7 @@ namespace YetiMelo
     {
         private List<string> FileList = new List<string>
         {
-            "E:\\Test\\01.jpg" , "E:\\Test\\02.jpg" , "E:\\Test\\03.jpg",
-            "E:\\Test\\01.mp3" , "E:\\Test\\02.mp3" , "E:\\Test\\03.mp3",
-            "E:\\Test\\01.mp4" , "E:\\Test\\02.mp4" , "E:\\Test\\03.mp4"
+            "D:\\Test\\Adele - Rolling In The Deep.mp3"
         };
         private Window Form;
         private MainWindow MainForm { get; set; }
@@ -58,7 +56,10 @@ namespace YetiMelo
 
         void InitPlayer()
         {
-            Media.Source = new Uri(FileList[PlayPosition], UriKind.Relative);
+            try
+            {
+                Media.Source = new Uri(FileList[PlayPosition], UriKind.Relative);
+            } catch { }
         }
 
         private void UpdatePlayList(List<string> list)
