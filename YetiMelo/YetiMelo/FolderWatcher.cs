@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace YetiMelo
@@ -12,20 +13,13 @@ namespace YetiMelo
     {
         FileSystemWatcher watcher;
         public List<string> AllowedExtensions { get; set; }
-        ListBox NotificationTarget;
         MainWindow ParentForm;
 
         public FolderWatcher() { }
 
-        public FolderWatcher(ListBox target)
-        {
-            this.NotificationTarget = target;
-        }
-        //might need some info about from the wpf to make notifications from this class
-        public void WatchFolder(string Path, List<string> AllowedExtensions, ListBox NotificationTarget, MainWindow MainForm)
+        public void WatchFolder(string Path, List<string> AllowedExtensions, MainWindow MainForm)
         {
             watcher = new FileSystemWatcher();
-            this.NotificationTarget = NotificationTarget;
             this.AllowedExtensions = AllowedExtensions;
             this.ParentForm = MainForm;
             watcher.Path = Path;
@@ -51,8 +45,8 @@ namespace YetiMelo
                     ParentForm.Dispatcher.Invoke((Action)(() =>
                     {
                         {
-                            //this.NotificationTarget.AppendText(string.Format("File created at: {0}", e.FullPath));
-                            NotificationTarget.Items.Add(string.Format("File created at: {0}", e.FullPath));
+                            Console.WriteLine(string.Format("File created at: {0}", e.FullPath));
+                            MessageBox.Show(string.Format("File created at: {0}", e.FullPath));
                         }
                     }));
                 }

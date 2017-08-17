@@ -11,12 +11,7 @@ namespace YetiMelo
 {
     class MediaPlayerController
     {
-        private List<string> FileList = new List<string>
-        {
-            "E:\\Test\\01.jpg" , "E:\\Test\\02.jpg" , "E:\\Test\\03.jpg",
-            "E:\\Test\\01.mp3" , "E:\\Test\\02.mp3" , "E:\\Test\\03.mp3",
-            "E:\\Test\\01.mp4" , "E:\\Test\\02.mp4" , "E:\\Test\\03.mp4"
-        };
+        private List<string> FileList;
         private Window Form;
         private MainWindow MainForm { get; set; }
         private MediaPlayer Player { get; set; }
@@ -48,8 +43,7 @@ namespace YetiMelo
 
         private void SetDefaultProperties()
         {
-            PlayPosition = 0;
-            IsPlaying = false;
+            IsPlaying = true;
 
             InitPlayer();
             Media.Volume = 100;
@@ -58,12 +52,28 @@ namespace YetiMelo
 
         void InitPlayer()
         {
-            Media.Source = new Uri(FileList[PlayPosition], UriKind.Relative);
+            HideOrShowButtons(FileList[PlayPosition]);
         }
 
         private void UpdatePlayList(List<string> list)
         {
             FileList = list;
+        }
+
+        internal void PlayCurrent()
+        {
+            try
+            {
+                Media.Source = new Uri(FileList[PlayPosition], UriKind.Relative);
+
+                HideOrShowButtons(FileList[PlayPosition]);
+
+            }
+            catch (Exception ex)
+            {
+                if (!ex.GetType().Equals(typeof(ArgumentOutOfRangeException)))
+                    MessageBox.Show(ex.Message);
+            }
         }
 
         internal void PlayNext()
@@ -72,10 +82,14 @@ namespace YetiMelo
             {
                 PlayPosition++;
                 Media.Source = new Uri(FileList[PlayPosition], UriKind.Relative);
+
+                HideOrShowButtons(FileList[PlayPosition]);
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                if (!ex.GetType().Equals(typeof(ArgumentOutOfRangeException)))
+                    MessageBox.Show(ex.Message);
             }
         }
 
@@ -85,10 +99,72 @@ namespace YetiMelo
             {
                 PlayPosition--;
                 Media.Source = new Uri(FileList[PlayPosition], UriKind.Relative);
+
+                HideOrShowButtons(FileList[PlayPosition]);
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                if (!ex.GetType().Equals(typeof(ArgumentOutOfRangeException)))
+                    MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void TurnOnSoundAndVideoOptions()
+        {
+            if (Player != null)
+            {
+                Media.Pause();
+                IsPlaying = false;
+                Player.PlayButton.Visibility = Visibility.Visible;
+                Player.PauseButton.Visibility = Visibility.Collapsed;
+                Player.statusBar.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void TurnOffSoundAndVideoOptions()
+        {
+            if (Player != null)
+            {
+                Media.Play();
+                IsPlaying = true;
+                Player.PlayButton.Visibility = Visibility.Collapsed;
+                Player.PauseButton.Visibility = Visibility.Collapsed;
+                Player.statusBar.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        internal bool IsItVideo()
+        {
+            if (Media.HasAudio && Media.HasVideo)
+                return true;
+            return false;
+        }
+
+        internal bool IsItMusic()
+        {
+            if (Media.HasAudio && !Media.HasVideo)
+                return true;
+            return false;
+        }
+
+        internal bool IsItPicture(string path)
+        {
+            List<string> pictext = new List<string> { ".jpg", ".bmp" };
+            if (pictext.Contains(System.IO.Path.GetExtension(path).ToLower()))
+                return true;
+            return false;
+        }
+
+        internal void HideOrShowButtons(string path)
+        {
+            if (IsItPicture(path))
+            {
+                TurnOffSoundAndVideoOptions();
+            }
+            else
+            {
+                TurnOnSoundAndVideoOptions();
             }
         }
     }
