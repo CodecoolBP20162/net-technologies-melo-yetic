@@ -73,11 +73,15 @@ namespace YetiMelo
         {
             MedCont.PlayNext();
         }
+
+
         //event hadler for changig the source of the media element to the previous in the list
         void PlayPrevious(Object sender, EventArgs e)
         {
             MedCont.PlayPrevious();
         }
+
+
         //event handler for mute button
         void MediaMute(Object sender, EventArgs e)
         {
@@ -103,6 +107,7 @@ namespace YetiMelo
                 menuBar.Visibility = Visibility.Visible;
             }
         }
+
         //timer to be used for tracking play progress
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -113,22 +118,30 @@ namespace YetiMelo
                 sliProgress.Value = myMedia.Position.TotalSeconds;
             }
         }
+
+
         //event handler for handling sliderdrag
         private void sliProgress_DragStarted(object sender, DragStartedEventArgs e)
         {
             userIsDraggingSlider = true;
         }
+
+
         //event handler for handling sliderdrag and changing actual play time
         private void sliProgress_DragCompleted(object sender, DragCompletedEventArgs e)
         {
             userIsDraggingSlider = false;
             myMedia.Position = TimeSpan.FromSeconds(sliProgress.Value);
         }
+
+
         //visualizing play progress
         private void sliProgress_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             lblProgressStatus.Text = TimeSpan.FromSeconds(sliProgress.Value).ToString(@"hh\:mm\:ss");
         }
+
+
         private void closeWindow_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
