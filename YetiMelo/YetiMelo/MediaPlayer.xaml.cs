@@ -68,12 +68,6 @@ namespace YetiMelo
             }
         }
 
-        //event handler for play button
-        void MediaPlay(Object sender, EventArgs e)
-        {
-            myMedia.Play();
-        }
-
         //event handler for changig the source of the media element to the next in the list
         void PlayNext(Object sender, EventArgs e)
         {
@@ -83,12 +77,6 @@ namespace YetiMelo
         void PlayPrevious(Object sender, EventArgs e)
         {
             MedCont.PlayPrevious();
-        }
-        //event handler for pause button
-        void MediaPause(Object sender, EventArgs e)
-        {
-            myMedia.Pause();
-
         }
         //event handler for mute button
         void MediaMute(Object sender, EventArgs e)
@@ -102,6 +90,7 @@ namespace YetiMelo
                 myMedia.Volume = 100;
             }
         }
+
         //event handler for hiding showing menu bar
         void ToggleMenu(object sender, MouseButtonEventArgs e)
         {

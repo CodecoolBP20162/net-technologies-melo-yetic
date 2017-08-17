@@ -48,21 +48,21 @@
             <Border Grid.Row="1" BorderBrush="#2f2929" BorderThickness="2,0,0,0">
                 <DockPanel LastChildFill="False">
                     <TextBlock Padding="10,0,0,0" DockPanel.Dock="Left" VerticalAlignment="Center"> Order by:</TextBlock>
-                    <RadioButton Padding="4,0,10,0" DockPanel.Dock="Right" VerticalAlignment="Center"> ABC </RadioButton>
-                    <RadioButton Padding="4,0,8,0" DockPanel.Dock="Right" VerticalAlignment="Center"> Type </RadioButton>
-                    <RadioButton Padding="4,0,8,0" DockPanel.Dock="Right" VerticalAlignment="Center"> Size </RadioButton>
+                    <RadioButton Padding="4,0,10,0" DockPanel.Dock="Right" VerticalAlignment="Center">ABC</RadioButton>
+                    <RadioButton Padding="4,0,8,0" DockPanel.Dock="Right" VerticalAlignment="Center">Type</RadioButton>
+                    <RadioButton Padding="4,0,8,0" DockPanel.Dock="Right" VerticalAlignment="Center">Size</RadioButton>
                 </DockPanel>
             </Border>
             <Border Grid.Row="2" Background="#d6cece" BorderBrush="#2f2929" BorderThickness="2,0,0,0">
                 <ListView x:Name="FileListView" SelectionChanged="FileListView_SelectionChanged" MouseDoubleClick="FileListView_MouseDoubleClick">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding File.Name}" />
-                        <GridViewColumn Header="Size" Width="Auto"  DisplayMemberBinding="{Binding FileSize}" />
-                        <GridViewColumn Header="Extension" Width="Auto" DisplayMemberBinding="{Binding File.Extension}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding File.Name}" />
+                            <GridViewColumn Header="Size" Width="Auto"  DisplayMemberBinding="{Binding FileSize}" />
+                            <GridViewColumn Header="Extension" Width="Auto" DisplayMemberBinding="{Binding File.Extension}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </Border>
 
         </Grid>
@@ -101,8 +101,8 @@
                     <Border Grid.Row="1" Grid.ColumnSpan="2">
                         <DockPanel LastChildFill="False" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                             <Button  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,4,4,4" Click="PlayPrevious" >⏮</Button>
-                            <Button x:Name="PlayButton" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,4,4,4" Click="TogglePlay" >▶</Button>
-                            <Button x:Name="PauseButton" VerticalAlignment="Center"  HorizontalAlignment="Center" Margin="4,4,4,4" Click="TogglePlay" Visibility="Collapsed">||</Button>
+                            <Button Name="PlayButton" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,4,4,4" Click="TogglePlay" >▶</Button>
+                            <Button Name="PauseButton" VerticalAlignment="Center"  HorizontalAlignment="Center" Margin="4,4,4,4" Click="TogglePlay" Visibility="Collapsed">||</Button>
                             <Button VerticalAlignment="Center" Margin="4,4,4,4" Click="PlayNext">⏩</Button>
                         </DockPanel>
                     </Border>
@@ -115,9 +115,9 @@
                     </Border>
                 </Grid>
             </Grid>
-             
-            
-            
+
+
+
         </Grid>
 
         <Border Grid.Row="0" Grid.ColumnSpan="2" BorderThickness="0,0,0,2" BorderBrush="DarkGray">
@@ -152,7 +152,7 @@
             <Button DockPanel.Dock="Right" Name="btPutOnTray" Click="btPutOnTray_Click" Height="20" Padding="-2" Width="20" VerticalAlignment="Top">_</Button>
 
         </DockPanel>
-        
+
 
 
     </Grid>

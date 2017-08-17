@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 
 namespace YetiMelo
@@ -27,27 +17,13 @@ namespace YetiMelo
         List<string> FilesFromFolders;
         FolderWatcher watcher;
         MediaPlayerController MedCont;
+        FolderScanner scanner;
 
         public MainWindow()
         {
             InitializeComponent();
             myMedia.Volume = 100;
-
-            FolderScanner scanner = new FolderScanner();
-
-            List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", };//query form DB
-            List<string> folders = new List<string> { "E:\\Test", "E:\\Test2" };//query form DB
-            FilesFromFolders = scanner.GetFiles(folders, AllowedExtensions);
-            List<CustomFileInfo> FileInfoList = new List<CustomFileInfo>();
-            foreach (string item in FilesFromFolders)
-            {
-                CustomFileInfo file = new CustomFileInfo(new FileInfo(item));
-                FileInfoList.Add(file);
-            }
-
-            FileListView.ItemsSource = FileInfoList;
-
-
+            scanner = new FolderScanner();
             watcher = new FolderWatcher();
 
             Loaded += MyWindow_Loaded;
@@ -55,63 +31,91 @@ namespace YetiMelo
 
         private void MyWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            GetFilesFromFolders();
             MedCont = new MediaPlayerController(this, myMedia, FilesFromFolders, 0);
-
         }
 
+        private void GetFilesFromFolders()
+        {
+            List<string> folders = new List<string> { "E:\\Test", "E:\\Test2" };//need query form DB
+            List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", };//need query form DB
+            FilesFromFolders = scanner.GetFiles(folders, AllowedExtensions);
+            FillFilesToListView();
+        }
+
+        private void addFolderWatch(List<string> folders, List<string> AllowedExtensions)
+        {
+            //wip, need to add support for multiple folders to be watched
+            watcher.WatchFolder("E:\\Test", AllowedExtensions, this);
+        }
+
+        private void FillFilesToListView()
+        {
+            List<CustomFileInfo> FileInfoList = new List<CustomFileInfo>();
+            foreach (string item in FilesFromFolders)
+            {
+                CustomFileInfo file = new CustomFileInfo(new FileInfo(item));
+                FileInfoList.Add(file);
+            }
+            FileListView.ItemsSource = FileInfoList;
+        }
 
         private void FileListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedIndexListView = FileListView.SelectedIndex;
             MedCont.PlayPosition = FileListView.SelectedIndex;
-        }
-
-        private void FileListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            MediaPlayer player = new MediaPlayer(selectedIndexListView, FilesFromFolders);
-            player.Show();
+            MedCont.PlayCurrent();
         }
 
         void MediaPlay(Object sender, EventArgs e)
         {
             myMedia.Play();
-
         }
 
-        void TogglePlay(Object sender, EventArgs e)
+        private void TogglePlay(Object sender, EventArgs e)
         {
             if (!MedCont.IsPlaying)
             {
-                myMedia.Play();
-                MedCont.IsPlaying = true;
-                PlayButton.Visibility = Visibility.Collapsed;
-                PauseButton.Visibility = Visibility.Visible;
+                ContinuePlaying();
             }
             else
             {
-                myMedia.Pause();
-                MedCont.IsPlaying = false;
-                PauseButton.Visibility = Visibility.Collapsed;
-                PlayButton.Visibility = Visibility.Visible;
+                StopPlaying();
             }
         }
 
-        void PlayNext(Object sender, EventArgs e)
+        private void StopPlaying()
+        {
+            myMedia.Pause();
+            MedCont.IsPlaying = false;
+            PauseButton.Visibility = Visibility.Collapsed;
+            PlayButton.Visibility = Visibility.Visible;
+        }
+
+        private void ContinuePlaying()
+        {
+            myMedia.Play();
+            MedCont.IsPlaying = true;
+            PlayButton.Visibility = Visibility.Collapsed;
+            PauseButton.Visibility = Visibility.Visible;
+        }
+
+        private void PlayNext(Object sender, EventArgs e)
         {
             MedCont.PlayNext();
         }
 
-        void PlayPrevious(Object sender, EventArgs e)
+        private void PlayPrevious(Object sender, EventArgs e)
         {
             MedCont.PlayPrevious();
         }
 
-        void MediaPause(Object sender, EventArgs e)
+        private void MediaPause(Object sender, EventArgs e)
         {
             myMedia.Pause();
         }
 
-        void MediaMute(Object sender, EventArgs e)
+        private void MediaMute(Object sender, EventArgs e)
         {
             if (myMedia.Volume == 100)
             {
@@ -144,7 +148,6 @@ namespace YetiMelo
             this.WindowState = WindowState.Minimized;
         }
 
-
         private void btSettings_Click(object sender, RoutedEventArgs e)
         {
             Window1 wind = new Window1();
@@ -173,6 +176,17 @@ namespace YetiMelo
         {
             MergeMp3 mm = new MergeMp3();
             mm.Show();
+        }
+
+        private void FileListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (!MedCont.IsItPicture(FilesFromFolders[selectedIndexListView]))
+            {
+                StopPlaying();
+            }
+
+            MediaPlayer player = new MediaPlayer(selectedIndexListView, FilesFromFolders);
+            player.Show();
         }
     }
 }
