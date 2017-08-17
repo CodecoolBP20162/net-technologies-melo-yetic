@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using NAudio.Wave;
 using System.IO;
 
-namespace Yetic_MeLo
+namespace YetiMelo
 {
     public class Mp3Editor
     {
@@ -34,16 +34,13 @@ namespace Yetic_MeLo
         }
 
         //mp3Files should contain the path too
-        public static Boolean Mp3Concat(string[] mp3Files, string OutputFile)
+        public static void Mp3Concat(string[] mp3Files, string OutputFile)
         {
             using (var w = new BinaryWriter(File.Create(OutputFile)))
             {
                 new List<string>(mp3Files).ForEach(f => w.Write(File.ReadAllBytes(f)));
             }
-            return true; //only for clearer testing, the method can be void
         }
-
-
 
     }
 }

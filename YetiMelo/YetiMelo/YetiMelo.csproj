@@ -40,6 +40,9 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.3.0.823, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.2.3.0.823\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="NAudio, Version=1.8.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.2\lib\net35\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -70,12 +73,15 @@
     </Compile>
     <Compile Include="FolderScanner.cs" />
     <Compile Include="FolderWatcher.cs" />
+    <Compile Include="InputCheck.cs" />
     <Compile Include="MediaPlayer.xaml.cs">
       <DependentUpon>MediaPlayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="MergeMp3.xaml.cs">
       <DependentUpon>MergeMp3.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Mp3Editor.cs" />
+    <Compile Include="Playlist.cs" />
     <Compile Include="RemoveFolder.xaml.cs">
       <DependentUpon>RemoveFolder.xaml</DependentUpon>
     </Compile>

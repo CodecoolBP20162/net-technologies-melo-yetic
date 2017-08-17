@@ -58,14 +58,14 @@
 
                 <Border Grid.Row="2">
                     <DockPanel LastChildFill="False" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBox DockPanel.Dock="Right" Margin="10,0,10,0" Padding="0" Height="24" FontSize="10" Foreground="DarkGray">Please enter the new file's name</TextBox>
+                        <TextBox Name="tbNewFileName" MinWidth="100" DockPanel.Dock="Right" Margin="10,0,10,0" Padding="0" Height="24" FontSize="10" Foreground="DarkGray" GotFocus="tbNewFileName_GotFocus">Please enter the new file's name</TextBox>
                     </DockPanel>
                 </Border>
 
                 <Border Grid.Row="3">
                     <DockPanel LastChildFill="False">
                         <TextBox Name="tbDestinationPath" HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" TextAlignment="Center" Margin="10,0,0,0">Select destination folder</TextBox>
-                        <Button Name="btSelectDesitnation" Click="btSelectDesitnation_Click_1"  DockPanel.Dock="Right" Margin="0,0,10,0" Padding="4" Height="24" FontSize="12">Select</Button>
+                        <Button Name="btSelectDesitnation" Click="btSelectDesitnation_Click"  DockPanel.Dock="Right" Margin="0,0,10,0" Padding="4" Height="24" FontSize="12">Select</Button>
                     </DockPanel>
                 </Border>
             </Grid>

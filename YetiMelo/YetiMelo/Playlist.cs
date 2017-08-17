@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yetic_MeLo
+namespace YetiMeLo
 {
     class Playlist
     {
