@@ -65,6 +65,27 @@ namespace YetiMelo
             selectedIndexListView = FileListView.SelectedIndex;
             MedCont.PlayPosition = FileListView.SelectedIndex;
             MedCont.PlayCurrent();
+            ChangeMetadataInfo();
+        }
+
+        private void ChangeMetadataInfo()
+        {
+            //write here query from database to get extensions
+        }
+
+        private void ChangeMetadataForImg()
+        {
+            ///handle fileInfo Changing
+        }
+
+        private void ChangeMetadataForVideo()
+        {
+            ///handle fileInfo Changing
+        }
+
+        private void ChangeMetadataForMusic()
+        {
+            ///handle fileInfo Changing
         }
 
         void MediaPlay(Object sender, EventArgs e)
