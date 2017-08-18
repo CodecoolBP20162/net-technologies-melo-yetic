@@ -20,7 +20,7 @@ namespace YetiMelo
 
         public static Boolean Mp3Format(string Path)
         {
-            if (Path.Substring(Path.Length - 3) != "mp3")
+            if (Path.Length<4 || Path.Substring(Path.Length - 4) != ".mp3")
             {
                 return false;
             }
@@ -34,6 +34,39 @@ namespace YetiMelo
                 return FileName+".mp3";
             }
             return FileName;
+        }
+
+        public static Boolean Trimmable(string Path, string NewFile, string Path2, int From, int To)
+        {
+            if (Path== "Select mp3 path" || Path=="" || NewFile== "Please enter the new file's name" || NewFile=="" || Path2== "Select destination folder" || Path2=="" || From > To)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static Boolean IsNumber(string Number)
+        {
+            //TryParse doesn't work with . or ,
+            try
+            {
+                int Num = Convert.ToInt32(Number);
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+            /* for float convert
+                try
+                {
+                    float Numb = Convert.ToSingle(Number);
+                }
+                catch (FormatException)
+                {
+                    return false;
+                }
+            }*/
+            return true;
         }
 
     }

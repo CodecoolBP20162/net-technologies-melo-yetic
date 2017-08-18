@@ -13,7 +13,7 @@ namespace YetiMelo
 
         //inputPath="..\\..\\mp3\\Radiorama - Yeti (album version).mp3"
         //outputPath="..\\..\\mp3\\test.mp3"
-        public static Boolean Mp3Trim(string inputPath, string outputPath, TimeSpan? begin, TimeSpan? end)
+        public static void Mp3Trim(string inputPath, string outputPath, TimeSpan? begin, TimeSpan? end)
         {
             if (begin.HasValue && end.HasValue && begin > end)
                 throw new ArgumentOutOfRangeException("end", "end should be greater than begin");
@@ -30,7 +30,6 @@ namespace YetiMelo
                         else break;
                     }
             }
-            return true; //only for clearer testing, the method can be void
         }
 
         //mp3Files should contain the path too
