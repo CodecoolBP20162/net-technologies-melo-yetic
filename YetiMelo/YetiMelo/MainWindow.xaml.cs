@@ -37,7 +37,7 @@ namespace YetiMelo
 
         private void GetFilesFromFolders()
         {
-            List<string> folders = new List<string> { "E:\\Test", "E:\\Test2" };//need query form DB
+            List<string> folders = new List<string> { "D:\\Test" };//need query form DB
             List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", };//need query form DB
             FilesFromFolders = scanner.GetFiles(folders, AllowedExtensions);
             FillFilesToListView();
@@ -46,7 +46,7 @@ namespace YetiMelo
         private void addFolderWatch(List<string> folders, List<string> AllowedExtensions)
         {
             //wip, need to add support for multiple folders to be watched
-            watcher.WatchFolder("E:\\Test", AllowedExtensions, this);
+            watcher.WatchFolder("D:\\Test", AllowedExtensions, this);
         }
 
         private void FillFilesToListView()
