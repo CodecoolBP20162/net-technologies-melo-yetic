@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,9 +37,9 @@ namespace YetiMelo
             return FileName;
         }
 
-        public static Boolean Trimmable(string Path, string NewFile, string Path2, int From, int To)
+        public static Boolean Trimmable(string Path, string NewFile, string Path2)
         {
-            if (Path== "Select mp3 path" || Path=="" || NewFile== "Please enter the new file's name" || NewFile=="" || Path2== "Select destination folder" || Path2=="" || From > To)
+            if (Path== "Select mp3 path" || Path=="" || NewFile== "Please enter the new file's name" || NewFile=="" || Path2== "Select destination folder" || Path2=="")
             {
                 return false;
             }
@@ -48,26 +49,19 @@ namespace YetiMelo
         public static Boolean IsNumber(string Number)
         {
             //TryParse doesn't work with . or ,
+
             try
             {
-                int Num = Convert.ToInt32(Number);
+                float Numb = Convert.ToInt32(Number);
             }
             catch (FormatException)
             {
                 return false;
             }
-            /* for float convert
-                try
-                {
-                    float Numb = Convert.ToSingle(Number);
-                }
-                catch (FormatException)
-                {
-                    return false;
-                }
-            }*/
+            
             return true;
         }
+
 
     }
 }
