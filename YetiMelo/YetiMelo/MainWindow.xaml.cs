@@ -29,9 +29,8 @@ namespace YetiMelo
 
         List<string> playList = new List<string>
         {
-            "E:\\Test\\01.jpg" , "E:\\Test\\02.jpg" , "E:\\Test\\03.jpg",
-            "E:\\Test\\01.mp3" , "E:\\Test\\02.mp3" , "E:\\Test\\03.mp3",
-            "E:\\Test\\01.mp4" , "E:\\Test\\02.mp4" , "E:\\Test\\03.mp4"
+            "C:\\Users\\Dodo\\Desktop\\test\\new.mp3" , "C:\\Users\\Dodo\\Desktop\\test\\Radiorama - Yeti (album version)" , "C:\\Users\\Dodo\\Desktop\\test\\d.mp3",
+            "C:\\Users\\Dodo\\Desktop\\test\\giga.mp3" , "C:\\Users\\Dodo\\Desktop\\test\\extralong.mp3"    
         };
 
         int playListPosition = 0;
@@ -44,17 +43,10 @@ namespace YetiMelo
             InitPlayer();
 
             FolderScanner scanner = new FolderScanner();
-            List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", };
-            List<string> folders = new List<string> { "E:\\Test", "E:\\Test2" };
+            List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", ".png"};
+            List<string> folders = new List<string> { "C:\\Users\\Dodo\\Desktop\\test"};
             FileList = scanner.GetFiles(folders, AllowedExtensions);
-            List<CustomFileInfo> FileInfoList = new List<CustomFileInfo>();
-            foreach (string item in FileList)
-            {
-                CustomFileInfo file = new CustomFileInfo(new FileInfo(item));
-                FileInfoList.Add(file);
-            }
-
-            FileListView.ItemsSource = FileInfoList;
+            DisplayFiles(FileList);
 
 
             watcher = new FolderWatcher();
@@ -203,6 +195,137 @@ namespace YetiMelo
         {
             MergeMp3 mm = new MergeMp3();
             mm.Show();
+        }
+
+        //NEW
+
+        private void cbImg_Checked(object sender, RoutedEventArgs e)
+        {
+            List<string> ImgList = Sorter.ImgSorter(FileList);
+            if (cbVid.IsChecked ?? true)
+            {
+                ImgList = ImgList.Concat(Sorter.VideoSorter(FileList)).ToList();
+            }
+            if (cbSong.IsChecked ?? true)
+            {
+                ImgList = ImgList.Concat(Sorter.SongSorter(FileList)).ToList();
+            }
+            DisplayFiles(ImgList);
+            
+        }
+
+        private void cbVid_Checked(object sender, RoutedEventArgs e)
+        {
+            List<string> VidList = Sorter.VideoSorter(FileList);
+            if (cbImg.IsChecked ?? true)
+            {
+                VidList = VidList.Concat(Sorter.ImgSorter(FileList)).ToList();
+            }
+            if (cbSong.IsChecked ?? true)
+            {
+                VidList = VidList.Concat(Sorter.SongSorter(FileList)).ToList();
+            }
+            DisplayFiles(VidList);
+
+        }
+
+        private void cbSong_Checked(object sender, RoutedEventArgs e)
+        {
+            List<string> SongList = Sorter.SongSorter(FileList);
+            if (cbVid.IsChecked ?? true)
+            {
+                SongList = SongList.Concat(Sorter.VideoSorter(FileList)).ToList();
+            }
+            if (cbImg.IsChecked ?? true)
+            {
+                SongList = SongList.Concat(Sorter.ImgSorter(FileList)).ToList();
+            }
+            DisplayFiles(SongList);
+        }
+
+        private void DisplayFiles(List<string> FilesToDisplay)
+        {
+            List<CustomFileInfo> FileInfoList = new List<CustomFileInfo>();
+            foreach (string item in FilesToDisplay)
+            {
+                CustomFileInfo file = new CustomFileInfo(new FileInfo(item));
+                FileInfoList.Add(file);
+            }
+            FileListView.ItemsSource = FileInfoList;
+        }
+
+        private void ListViewEmpty()
+        {
+            FileListView.ItemsSource = null;
+            FileListView.Items.Clear();
+        }
+
+        private void cbSong_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (cbImg.IsChecked ?? true)
+            {
+                cbImg_Checked(sender, e);
+            }
+            else
+            {
+                if (cbVid.IsChecked ?? true)
+                {
+                    cbVid_Checked(sender, e);
+                }
+                else
+                {
+                    DisplayFiles(FileList);
+                }
+            }
+        }
+
+        private void cbVid_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (cbImg.IsChecked ?? true)
+            {
+                cbImg_Checked(sender, e);
+            }
+            else
+            {
+                if (cbSong.IsChecked ?? true)
+                {
+                    cbSong_Checked(sender, e);
+                }
+                else
+                {
+                    DisplayFiles(FileList);
+                }
+            }
+        }
+
+        private void cbImg_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (cbSong.IsChecked ?? true)
+            {
+                cbSong_Checked(sender, e);
+            }
+            else
+            {
+                if (cbVid.IsChecked ?? true)
+                {
+                    cbVid_Checked(sender, e);
+                }
+                else
+                {
+                    DisplayFiles(FileList);
+                }
+            }
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> FoundFiles = Sorter.Search(FileList,tbSearch.Text);
+            DisplayFiles(FoundFiles);
+        }
+
+        private void tbSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbSearch.Text = "";
         }
     }
 }

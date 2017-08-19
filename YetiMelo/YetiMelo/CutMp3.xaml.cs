@@ -31,7 +31,7 @@ namespace YetiMelo
             //if (CheckNumber() && InputCheck.Trimmable(tbMp3Path.Text, tbNewFileName.Text, tbDestinationPath.Text, Convert.ToInt32(tbCutFrom.Text), Convert.ToInt32(tbCutTo.Text)))
             if (InputCheck.Trimmable(tbMp3Path.Text, tbNewFileName.Text, tbDestinationPath.Text, Convert.ToInt32(tbCutFrom.Text), Convert.ToInt32(tbCutTo.Text)))
                 {
-                    string NewMp3 = tbDestinationPath.Text + "\\" + InputCheck.CreateMp3Format(tbNewFileName.Text);
+                string NewMp3 = tbDestinationPath.Text + "\\" + InputCheck.CreateMp3Format(tbNewFileName.Text);
                 Mp3Editor.Mp3Trim(tbMp3Path.Text, NewMp3, TimeSpan.FromMinutes(Convert.ToInt32(tbCutFrom.Text)), TimeSpan.FromMinutes(Convert.ToInt32(tbCutTo.Text)));
                 System.Windows.MessageBox.Show("The trim was successful.");
                 this.Close();
