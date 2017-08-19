@@ -21,7 +21,7 @@ namespace YetiMelo
 
         internal MediaPlayerController(MainWindow Form, MediaElement Media, List<string> Files, int position)
         {
-            this.Form = Form;
+            this.MainForm = Form;
             this.Media = Media;
             this.FileList = Files;
             this.PlayPosition = position;
@@ -37,8 +37,6 @@ namespace YetiMelo
             this.PlayPosition = position;
             SetDefaultProperties();
             this.Form = Player;
-
-
         }
 
         private void SetDefaultProperties()
@@ -114,11 +112,18 @@ namespace YetiMelo
         {
             if (Player != null)
             {
-                Media.Pause();
+                Media.Play();
                 IsPlaying = false;
                 Player.PlayButton.Visibility = Visibility.Visible;
                 Player.PauseButton.Visibility = Visibility.Collapsed;
                 Player.statusBar.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Media.Pause();
+                IsPlaying = false;
+                MainForm.PlayButton.Visibility = Visibility.Visible;
+                MainForm.PauseButton.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -131,6 +136,13 @@ namespace YetiMelo
                 Player.PlayButton.Visibility = Visibility.Collapsed;
                 Player.PauseButton.Visibility = Visibility.Collapsed;
                 Player.statusBar.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Media.Play();
+                IsPlaying = true;
+                MainForm.PlayButton.Visibility = Visibility.Collapsed;
+                MainForm.PauseButton.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -150,7 +162,7 @@ namespace YetiMelo
 
         internal bool IsItPicture(string path)
         {
-            List<string> pictext = new List<string> { ".jpg", ".bmp" };
+            List<string> pictext = new List<string> { ".jpg", ".bmp", ".png" };
             if (pictext.Contains(System.IO.Path.GetExtension(path).ToLower()))
                 return true;
             return false;
