@@ -38,16 +38,16 @@ namespace YetiMelo
 
         private void GetFilesFromFolders()
         {
-            List<string> folders = new List<string> { "D:\\Test" };//need query form DB
+            List<string> folders = new List<string> { "E:\\Test" };//need query form DB
             List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", };//need query form DB
             FilesFromFolders = scanner.GetFiles(folders, AllowedExtensions);
             FillFilesToListView();
+            AddFolderWatch(folders, AllowedExtensions);
         }
 
-        private void addFolderWatch(List<string> folders, List<string> AllowedExtensions)
+        private void AddFolderWatch(List<string> folders, List<string> AllowedExtensions)
         {
-            //wip, need to add support for multiple folders to be watched
-            watcher.WatchFolder("D:\\Test", AllowedExtensions, this);
+            watcher.WatchFolder("E:\\Test", AllowedExtensions, this);
         }
 
         private void FillFilesToListView()
@@ -119,11 +119,6 @@ namespace YetiMelo
             lbFileInfoType2.Content = "Duration: ";
         }
 
-        void MediaPlay(Object sender, EventArgs e)
-        {
-            myMedia.Play();
-        }
-
         private void TogglePlay(Object sender, EventArgs e)
         {
             if (!MedCont.IsPlaying)
@@ -155,16 +150,13 @@ namespace YetiMelo
         private void PlayNext(Object sender, EventArgs e)
         {
             MedCont.PlayNext();
+            FileListView.SelectedIndex++;
         }
 
         private void PlayPrevious(Object sender, EventArgs e)
         {
             MedCont.PlayPrevious();
-        }
-
-        private void MediaPause(Object sender, EventArgs e)
-        {
-            myMedia.Pause();
+            FileListView.SelectedIndex--;
         }
 
         private void MediaMute(Object sender, EventArgs e)

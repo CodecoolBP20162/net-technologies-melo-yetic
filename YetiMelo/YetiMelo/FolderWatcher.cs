@@ -13,7 +13,8 @@ namespace YetiMelo
     {
         FileSystemWatcher watcher;
         public List<string> AllowedExtensions { get; set; }
-        MainWindow ParentForm;
+        MainWindow MainForm;
+        List<string> Folders;
 
         public FolderWatcher() { }
 
@@ -21,7 +22,7 @@ namespace YetiMelo
         {
             watcher = new FileSystemWatcher();
             this.AllowedExtensions = AllowedExtensions;
-            this.ParentForm = MainForm;
+            this.MainForm = MainForm;
             watcher.Path = Path;
             watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                          | NotifyFilters.FileName | NotifyFilters.DirectoryName;
@@ -29,6 +30,15 @@ namespace YetiMelo
             watcher.IncludeSubdirectories = true;
             watcher.Created += new FileSystemEventHandler(OnCreated);
             watcher.EnableRaisingEvents = true;
+        }
+
+        public void WatchFolder(List<string> Folders, List<string> AllowedExtensions, MainWindow MainForm)
+        {
+            this.Folders = Folders;
+            foreach (string Path in Folders)
+            {
+                WatchFolder(Path, AllowedExtensions, MainForm);
+            }
         }
 
         private void OnCreated(object sender, FileSystemEventArgs e)
@@ -42,7 +52,7 @@ namespace YetiMelo
             {
                 if (AllowedExtensions.Contains(System.IO.Path.GetExtension(e.FullPath).ToLower()))
                 {
-                    ParentForm.Dispatcher.Invoke((Action)(() =>
+                    MainForm.Dispatcher.Invoke((Action)(() =>
                     {
                         {
                             Console.WriteLine(string.Format("File created at: {0}", e.FullPath));

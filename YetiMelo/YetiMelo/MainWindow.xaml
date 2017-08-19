@@ -84,7 +84,7 @@
                         <ColumnDefinition Width="3*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Border Background="#d6cece" Grid.Column="0">
-                        <Image Name="imgMedia" HorizontalAlignment="Left"  Source="music.png" Stretch="Uniform" Margin="8"/>
+                        <Image Name="imgMedia" HorizontalAlignment="Left"  Source="Resources\img\music.png" Stretch="Uniform" Margin="8"/>
                     </Border>
 
 

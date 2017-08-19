@@ -73,9 +73,7 @@ namespace YetiMelo
         {
             MedCont.PlayNext();
         }
-
-
-        //event hadler for changig the source of the media element to the previous in the list
+        //event handler for changig the source of the media element to the previous in the list
         void PlayPrevious(Object sender, EventArgs e)
         {
             MedCont.PlayPrevious();
@@ -118,7 +116,6 @@ namespace YetiMelo
                 sliProgress.Value = myMedia.Position.TotalSeconds;
             }
         }
-
 
         //event handler for handling sliderdrag
         private void sliProgress_DragStarted(object sender, DragStartedEventArgs e)
