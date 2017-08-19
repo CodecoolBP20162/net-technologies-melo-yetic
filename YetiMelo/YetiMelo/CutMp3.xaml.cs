@@ -52,12 +52,12 @@ namespace YetiMelo
         {
             if (!InputCheck.IsNumber(tbCutFrom.Text))
             {
-                System.Windows.MessageBox.Show("Please use a number 1.");
+                System.Windows.MessageBox.Show("Please use a number.");
                 return false;
             }
             if (!InputCheck.IsNumber(tbCutTo.Text))
             {
-                System.Windows.MessageBox.Show("Please use a number");
+                System.Windows.MessageBox.Show("Please use a number.");
                 return false;
             }
             return true;

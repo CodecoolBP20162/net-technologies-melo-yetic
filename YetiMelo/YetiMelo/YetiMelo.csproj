@@ -81,6 +81,7 @@
       <DependentUpon>MergeMp3.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mp3Editor.cs" />
+    <Compile Include="PathManager.cs" />
     <Compile Include="Playlist.cs" />
     <Compile Include="RemoveFolder.xaml.cs">
       <DependentUpon>RemoveFolder.xaml</DependentUpon>
