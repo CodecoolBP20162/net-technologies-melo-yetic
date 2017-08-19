@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YetiMelo"
         mc:Ignorable="d"
-        Title="MediaPlayer" Height="300" Width="300" WindowStyle="None">
+        Title="MediaPlayer" Height="300" Width="300" MinHeight="200" MinWidth="300" WindowStyle="None">
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -28,18 +28,18 @@
         </Border>
 
         <Border Background="#FF15405D" Grid.Row="1">
-            <MediaElement  Name="myMedia" Grid.Row="1"
-            LoadedBehavior = "Manual" MinHeight="100" MinWidth="100" Stretch="Uniform" MouseLeftButtonDown="ToggleMenu"/>
+            <MediaElement  Name="myMedia" Grid.Row="1" LoadedBehavior = "Manual" MinHeight="100" MinWidth="100" Stretch="Uniform" MouseLeftButtonDown="ToggleMenu"/>
         </Border>
-        <StackPanel Grid.Row="1" x:Name="menuBar" Visibility="Visible" Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30, 0,0,0" Name="btnPrev" Click="PlayPrevious" BorderThickness="0" >⏮</Button>
-            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30,0,0,0" Name="PlayButton" Click="TogglePlay"  BorderThickness="0" >▶</Button>
-            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30,0,0,0" Name="PauseButton" Click="TogglePlay" BorderThickness="0" Visibility="Collapsed" >||</Button>
-            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20,0,0,0" Name="btnNext" Click="PlayNext" BorderThickness="0" >⏩</Button>
-            <Button x:Name="SoundOn" Margin="15,0,10,0" Padding="5" Click="MediaMute" >🔊</Button>
-            <Button x:Name="SoundOff" Margin="0,0,10,0" Padding="5" Click="MediaMute" Visibility="Collapsed" >🔇</Button>
-
-        </StackPanel>
+        <DockPanel Grid.Row="1" x:Name="menuBar" Visibility="Visible" LastChildFill="False" HorizontalAlignment="Center" Width="auto" VerticalAlignment="Bottom">
+            <Button DockPanel.Dock="Left" Margin="4"  Name="btnPrev" Click="PlayPrevious" BorderThickness="0" >⏮</Button>
+            <Button DockPanel.Dock="Left" Margin="4" Name="PlayButton" Click="TogglePlay"  BorderThickness="0" >▶</Button>
+            <Button DockPanel.Dock="Left" Margin="4" Name="PauseButton" Click="TogglePlay" BorderThickness="0" Visibility="Collapsed" >||</Button>
+            <Button DockPanel.Dock="Left" Margin="4" Name="btnNext" Click="PlayNext" BorderThickness="0" >⏩</Button>
+        </DockPanel>
+        <DockPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button DockPanel.Dock="Right" x:Name="SoundOn" Margin="0,0,4,4" Padding="5" Click="MediaMute" >🔊</Button>
+            <Button DockPanel.Dock="Right" x:Name="SoundOff" Margin="0,0,4,4" Padding="5" Click="MediaMute" Visibility="Collapsed" >🔇</Button>
+        </DockPanel>
 
         <StatusBar Grid.Row="2" x:Name="statusBar" Visibility="Visible">
             <StatusBar.ItemsPanel>

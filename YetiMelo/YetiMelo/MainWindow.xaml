@@ -59,9 +59,9 @@
                 <ListView x:Name="FileListView" SelectionChanged="FileListView_SelectionChanged" MouseDoubleClick="FileListView_MouseDoubleClick">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding File.Name}" />
+                            <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding fileInfo.Name}" />
                             <GridViewColumn Header="Size" Width="Auto"  DisplayMemberBinding="{Binding FileSize}" />
-                            <GridViewColumn Header="Extension" Width="Auto" DisplayMemberBinding="{Binding File.Extension}" />
+                            <GridViewColumn Header="Extension" Width="Auto" DisplayMemberBinding="{Binding fileInfo.Extension}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -73,7 +73,7 @@
 
         <Grid Grid.Column="0" Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.4*"></RowDefinition>
+                <RowDefinition Height="140"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
@@ -81,7 +81,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Border Background="#d6cece" Grid.Column="0">
                         <Image Name="imgMedia" HorizontalAlignment="Left"  Source="music.png" Stretch="Uniform" Margin="8"/>
@@ -89,83 +89,83 @@
 
 
                     <Border Grid.Column="1">
-                        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition Height="3*"/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="4*"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
 
-                                <Border Grid.Row="0">
-                                    <DockPanel>
-                                        <Label Padding="8" FontWeight="Bold" Name="lbTitle" DockPanel.Dock="Left" HorizontalAlignment="Center"  Content="Somewierdfilestitle.mp3"></Label>
-                                    </DockPanel>
-                                </Border>
+                            <Border Grid.Row="0" Height="100">
+                                <DockPanel>
+                                    <Label Padding="8" FontWeight="Bold" Name="lbTitle" DockPanel.Dock="Left" HorizontalAlignment="Center"  Content="Somewierdfilestitle.mp3"></Label>
+                                </DockPanel>
+                            </Border>
 
+                            
+                            <Border Grid.Row="1">
+                                <Viewbox Stretch="Fill" StretchDirection="DownOnly">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Row="0" Grid.Column="0">
+                                        <DockPanel>
+                                            <Label DockPanel.Dock="Left" FontWeight="DemiBold" Name="lbFileInfoType1">Size:</Label>
+                                            <Label DockPanel.Dock="Left" Name="lbFileInfo1">Sometext</Label>
+                                        </DockPanel>
+                                    </Border>
+                                    <Border Grid.Row="0" Grid.Column="1">
+                                        <DockPanel>
+                                            <Label DockPanel.Dock="Left" FontWeight="DemiBold" Name="lbFileInfoType2">FileInfo2</Label>
+                                            <Label DockPanel.Dock="Left" Name="lbFileInfo2" >Sometext</Label>
+                                        </DockPanel>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="0">
+                                        <DockPanel>
+                                            <Label DockPanel.Dock="Left" FontWeight="DemiBold" Name="lbFileInfoType3">Extension:</Label>
+                                            <Label DockPanel.Dock="Left" Name="lbFileInfo3">Sometext</Label>
+                                        </DockPanel>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="1">
+                                        <DockPanel>
+                                            <Label DockPanel.Dock="Left" FontWeight="DemiBold" Name="lbFileInfoType4">Created:</Label>
+                                            <Label DockPanel.Dock="Left" Name="lbFileInfo4">SomeText</Label>
+                                        </DockPanel>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="0">
+                                        <DockPanel>
+                                            <Label DockPanel.Dock="Left" FontWeight="DemiBold" Name="lbFileInfoType5">FileInfo5</Label>
+                                            <Label DockPanel.Dock="Left">Sometext</Label>
+                                        </DockPanel>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="1">
+                                        <DockPanel>
+                                            <Label DockPanel.Dock="Left" FontWeight="DemiBold" Name="lbFileInfoType6">Modified:</Label>
+                                            <Label DockPanel.Dock="Left" Name="lbFileInfo6">Sometext</Label>
+                                        </DockPanel>
+                                    </Border>
+                                </Grid>
+                                </Viewbox>
+                            </Border>
+                            
 
-                                <Border Grid.Row="1">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Border Grid.Row="0" Grid.Column="0">
-                                            <DockPanel>
-                                                <Label DockPanel.Dock="Left" FontWeight="DemiBold" Name="lbFileInfoType1">FileInfo1</Label>
-                                                <Label DockPanel.Dock="Left" Name="lbFileInfo1">Sometext</Label>
-                                            </DockPanel>
-                                        </Border>
-                                        <Border Grid.Row="0" Grid.Column="2">
-                                            <DockPanel>
-                                                <Label DockPanel.Dock="Left" FontWeight="DemiBold" Name="lbFileInfoType2">FileInfo2</Label>
-                                                <Label DockPanel.Dock="Left" Name="lbFileInfo2">Sometext</Label>
-                                            </DockPanel>
-                                        </Border>
-                                        <Border Grid.Row="1" Grid.Column="0">
-                                            <DockPanel>
-                                                <Label DockPanel.Dock="Left" FontWeight="DemiBold" Name="lbFileInfoType3">FileInfo3</Label>
-                                                <Label DockPanel.Dock="Left" Name="lbFileInfo3"> Sometext</Label>
-                                            </DockPanel>
-                                        </Border>
-                                        <Border Grid.Row="1" Grid.Column="2">
-                                            <DockPanel>
-                                                <Label DockPanel.Dock="Left" FontWeight="DemiBold" Name="lbFileInfoType4"> FileInfo4</Label>
-                                                <Label DockPanel.Dock="Left" Name="lbFileInfo4">SomeText</Label>
-                                            </DockPanel>
-                                        </Border>
-                                        <Border Grid.Row="2" Grid.Column="0">
-                                            <DockPanel>
-                                                <Label DockPanel.Dock="Left" FontWeight="DemiBold" Name="lbFileInfoType5">FileInfo5</Label>
-                                                <Label DockPanel.Dock="Left" Name="lbFileInfo5">Sometext</Label>
-                                            </DockPanel>
-                                        </Border>
-                                        <Border Grid.Row="2" Grid.Column="2">
-                                            <DockPanel>
-                                                <Label DockPanel.Dock="Left" FontWeight="DemiBold" Name="lbFileInfoType6"> FileInfo6 </Label>
-                                                <Label DockPanel.Dock="Left" Name="lbFileInfo6">Sometext</Label>
-                                            </DockPanel>
-                                        </Border>
-                                    </Grid>
-                                </Border>
+                            <Border Grid.Row="2">
+                                <DockPanel LastChildFill="False" HorizontalAlignment="Center">
+                                    <Label Visibility="Collapsed" Padding="8" FontSize="16" FontWeight="Bold" Name="lbFileInfoType7" DockPanel.Dock="Left" HorizontalAlignment="Left"  Content="Title:"></Label>
+                                    <Label Visibility="Collapsed" Width="auto" Padding="4" Margin="0,5,0,0" FontSize="16" Name="lbFileInfo7" DockPanel.Dock="Left" HorizontalAlignment="Left"  Content="Somethingwierd.mp3"></Label>
 
-                                <Border Grid.Row="2">
-                                    <DockPanel LastChildFill="False" HorizontalAlignment="Center">
-                                        <Label Visibility="Collapsed" Padding="8" FontSize="16" FontWeight="Bold" Name="lbFileInfoType7" DockPanel.Dock="Left" HorizontalAlignment="Left"  Content="Title:"></Label>
-                                        <Label Visibility="Collapsed" Width="auto" Padding="4" Margin="0,5,0,0" FontSize="16" Name="lbFileInfo7" DockPanel.Dock="Left" HorizontalAlignment="Left"  Content="Somethingwierd.mp3"></Label>
-
-                                        <Button DockPanel.Dock="left"  Margin="4">Cut Mp3</Button>
-                                        <Button Margin="4">Concat Mp3</Button>
-                                    </DockPanel>
-                                </Border>
-                            </Grid>
-                        </Viewbox>
+                                    <Button Name="btcutMp3" DockPanel.Dock="left"  Margin="4" Visibility="Collapsed">Cut Mp3</Button>
+                                    <Button Name="btConcatMp3" Margin="4" Visibility="Collapsed">Concat Mp3</Button>
+                                </DockPanel>
+                            </Border>
+                        </Grid>
                     </Border>
                 </Grid>
             </Border>

@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 
 namespace YetiMelo
@@ -65,6 +66,57 @@ namespace YetiMelo
             selectedIndexListView = FileListView.SelectedIndex;
             MedCont.PlayPosition = FileListView.SelectedIndex;
             MedCont.PlayCurrent();
+            ChangeMetadataInfo();
+        }
+
+        private void ChangeMetadataInfo()
+        {
+            ChangeCommonMediaInfo();
+            List<string> pictext = new List<string> { ".jpg", ".bmp", ".png" };
+            List<string> vidext = new List<string> { ".avi", ".mkv", ".mp4" };
+            List<string> music = new List<string> { ".mp3", ".wav", ".mid" };
+            if (pictext.Contains(System.IO.Path.GetExtension(FilesFromFolders[selectedIndexListView]).ToLower())) ChangeMetadataForImg();
+            else if (vidext.Contains(System.IO.Path.GetExtension(FilesFromFolders[selectedIndexListView]).ToLower())) ChangeMetadataForVideo();
+            else if (music.Contains(System.IO.Path.GetExtension(FilesFromFolders[selectedIndexListView]).ToLower())) ChangeMetadataForMusic();
+        }
+
+        private void ChangeMetadataForImg()
+        {
+
+
+            using (var imageStream = File.OpenRead(FilesFromFolders[selectedIndexListView]))
+            {
+                var decoder = BitmapDecoder.Create(imageStream, BitmapCreateOptions.IgnoreColorProfile,
+                    BitmapCacheOption.Default);
+                var height = decoder.Frames[0].PixelHeight;
+                var width = decoder.Frames[0].PixelWidth;
+                lbTitle.Content = Path.GetFileName(FilesFromFolders[selectedIndexListView]);
+                lbFileInfoType2.Content = "Resolution: ";
+                lbFileInfo2.Content = width.ToString() + "x" + height.ToString() + " px";
+            }
+        }
+
+        private void ChangeCommonMediaInfo()
+        {
+            CustomFileInfo cs = new CustomFileInfo(FilesFromFolders[selectedIndexListView]);
+            lbFileInfo4.Content = cs.creation.ToString();
+            lbFileInfo6.Content = cs.modification.ToString();
+            lbFileInfo1.Content = cs.FileSize.ToString();
+            lbFileInfo3.Content = cs.extension;
+        }
+
+        private void ChangeMetadataForVideo()
+        {
+            ///handle fileInfo Changing
+        }
+
+        private void ChangeMetadataForMusic()
+        {
+            TagLib.File f = TagLib.File.Create(FilesFromFolders[selectedIndexListView], TagLib.ReadStyle.Average);
+            var duration = (int)f.Properties.Duration.TotalSeconds;
+            TimeSpan time = TimeSpan.FromSeconds(duration);
+            lbFileInfo2.Content = time.ToString();
+            lbFileInfoType2.Content = "Duration: ";
         }
 
         void MediaPlay(Object sender, EventArgs e)
