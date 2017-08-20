@@ -35,7 +35,6 @@ namespace YetiMelo
         private string getSize()
         {
             long size = this.fileInfo.Length;
-
             string strsize = SizeSuffix(size);
             return strsize;
         }

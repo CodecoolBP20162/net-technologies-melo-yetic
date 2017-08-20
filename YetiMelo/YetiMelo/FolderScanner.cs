@@ -35,6 +35,7 @@ namespace YetiMelo
 
         public List<string> GetFiles(List<string> FolderList, List<string> AllowedExtensions)
         {
+            FoundFileList = new List<string>();
 
             foreach (string Destination in FolderList)
             {
