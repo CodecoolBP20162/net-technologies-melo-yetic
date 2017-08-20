@@ -1,128 +1,128 @@
-﻿//using System;
-//using System.Linq;
-//using YetiMelo.Models;
+﻿//using system;
+//using system.linq;
+//using yetimelo.models;
 
-//namespace YetiMeLo
+//namespace yetimelo
 //{
-//    public class EntityManager
+//    public class entitymanager
 //    {
-//        MeloModelContainer2 db = new MeloModelContainer2();
+//        melomodelcontainer2 db = new melomodelcontainer2();
 
-//        // Folders //
-//        // Add
-//        public void AddToFolders(string path, bool music, bool pics, bool video)
+//        // folders //
+//        // add
+//        public void addtofolders(string path, bool music, bool pics, bool video)
 //        {
-//            var folder = new Folders
+//            var folder = new folders
 //            {
-//                Path = path,
-//                Music = music,
-//                Picture = pics,
-//                Video = video
+//                path = path,
+//                music = music,
+//                picture = pics,
+//                video = video
 //            };
-//            db.FoldersSet.Add(folder);
-//            db.SaveChanges();                                   
+//            db.foldersset.add(folder);
+//            db.savechanges();
 //        }
 
-//        // Select
-//        public IQueryable SelectFromFolders(int id)
-//        {
-//            if(id != 0)
-//            {
-//                var query = from b in db.FoldersSet
-//                            where b.Id == id
-//                            select b;
-//                return query;
-//            }
-//            else
-//            {
-//                throw new Exception("There is no entity with the given Id: " + id);
-//            }
-//        }
-
-//        // Update
-//        public void UpdateFromFolders(int id, string newPath, bool newMusic, bool newPicture, bool newVideo)
-//        {
-//            var rowToUpdate = db.FoldersSet.Find(id);
-//            rowToUpdate.Path = newPath;
-//            rowToUpdate.Music = newMusic;
-//            rowToUpdate.Picture = newPicture;
-//            rowToUpdate.Video = newVideo;
-//            db.SaveChanges();
-//        }
-
-//        // Delete 
-//        public void DeleteFromFolders(int id)
-//        {
-//            if(db.FoldersSet.Find(id) != null)
-//            {
-//                var row = db.FoldersSet.Find(id);
-//                db.FoldersSet.Remove(row);
-//                db.SaveChanges();
-//            }
-//            else
-//            {
-//                throw new Exception("There is no entity with the given Id: " + id);
-//            }
-//        }
-
-//        // Settings //
-//        // Add
-//        public void AddTosettings(string category, string extension, bool check)
-//        {
-//            var setting = new Settings
-//            {
-//                Category = category,
-//                Extension = extension,
-//                Check = check
-//            };
-//            db.SettingsSet.Add(setting);
-//            db.SaveChanges();
-//        }
-
-//        // Select 
-//        public IQueryable SelectFromSettings(int id)
+//        // select
+//        public iqueryable selectfromfolders(int id)
 //        {
 //            if (id != 0)
 //            {
-//                var query = from b in db.SettingsSet
-//                            where b.Id == id
+//                var query = from b in db.foldersset
+//                            where b.id == id
 //                            select b;
 //                return query;
 //            }
 //            else
 //            {
-//                throw new Exception("There is no entity with the given Id: " + id);
+//                throw new exception("there is no entity with the given id: " + id);
 //            }
 //        }
 
-//        // Update
-//        public void UpdateFromSettings(int id, string newCategory, string newExtension, bool newCheck)
+//        // update
+//        public void updatefromfolders(int id, string newpath, bool newmusic, bool newpicture, bool newvideo)
 //        {
-//            var rowToUpdate = db.SettingsSet.Find(id);
-//            rowToUpdate.Category = newCategory;
-//            rowToUpdate.Extension = newExtension;
-//            rowToUpdate.Check = newCheck;
-//            db.SaveChanges();
+//            var rowtoupdate = db.foldersset.find(id);
+//            rowtoupdate.path = newpath;
+//            rowtoupdate.music = newmusic;
+//            rowtoupdate.picture = newpicture;
+//            rowtoupdate.video = newvideo;
+//            db.savechanges();
 //        }
 
-//        // Delete 
-//        public void DeleteFromSettings(int id)
+//        // delete 
+//        public void deletefromfolders(int id)
 //        {
-//            if (db.SettingsSet.Find(id) != null)
+//            if (db.foldersset.find(id) != null)
 //            {
-//                var row = db.SettingsSet.Find(id);
-//                db.SettingsSet.Remove(row);
-//                db.SaveChanges();
+//                var row = db.foldersset.find(id);
+//                db.foldersset.remove(row);
+//                db.savechanges();
 //            }
 //            else
 //            {
-//                throw new Exception("There is no entity with the given Id: " + id);
+//                throw new exception("there is no entity with the given id: " + id);
 //            }
 //        }
 
-//        public void TruncateTable(string table)
+//        // settings //
+//        // add
+//        public void addtosettings(string category, string extension, bool check)
 //        {
-//            db.Database.ExecuteSqlCommand("TRUNCATE TABLE [" + table + "]");         
+//            var setting = new settings
+//            {
+//                category = category,
+//                extension = extension,
+//                check = check
+//            };
+//            db.settingsset.add(setting);
+//            db.savechanges();
+//        }
+
+//        // select 
+//        public iqueryable selectfromsettings(int id)
+//        {
+//            if (id != 0)
+//            {
+//                var query = from b in db.settings
+//                            where b.id == id
+//                            select b;
+//                return query;
+//            }
+//            else
+//            {
+//                throw new exception("there is no entity with the given id: " + id);
+//            }
+//        }
+
+//        // update
+//        public void updatefromsettings(int id, string newcategory, string newextension, bool newcheck)
+//        {
+//            var rowtoupdate = db.settingsset.find(id);
+//            rowtoupdate.category = newcategory;
+//            rowtoupdate.extension = newextension;
+//            rowtoupdate.check = newcheck;
+//            db.savechanges();
+//        }
+
+//        // delete 
+//        public void deletefromsettings(int id)
+//        {
+//            if (db.settingsset.find(id) != null)
+//            {
+//                var row = db.settingsset.find(id);
+//                db.settingsset.remove(row);
+//                db.savechanges();
+//            }
+//            else
+//            {
+//                throw new exception("there is no entity with the given id: " + id);
+//            }
+//        }
+
+//        public void truncatetable(string table)
+//        {
+//            db.database.executesqlcommand("truncate table [" + table + "]");
 //        }
 //    }
 //}

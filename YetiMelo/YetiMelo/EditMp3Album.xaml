@@ -1,0 +1,68 @@
+﻿<Window x:Class="YetiMelo.EditMp3Album"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YetiMelo"
+        mc:Ignorable="d"
+        Title="MergeMp3" Height="180" Width="300" WindowStyle="None" MouseDown="Window_MouseDown">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" BorderThickness="0,0,0,2" BorderBrush="DarkGray">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#2e154c" Offset="0" />
+                    <GradientStop Color="#3b1b64" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <DockPanel LastChildFill="False">
+                <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Foreground="White" Padding="4" Margin="4,0,0,0" FontSize="16">Edit mp3 tags</TextBlock>
+                <Button DockPanel.Dock="Right" Name="btClose" Click="btClose_Click" Height="20" Width="20" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Center">x</Button>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Row="1">
+            <TextBlock TextAlignment="Center" Foreground="#2f2929" FontSize="14" VerticalAlignment="Center">MP3 Title goes here!</TextBlock>
+        </Border>
+
+        <Border Grid.Row="2">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0">
+                    <StackPanel>
+                        <TextBox Width="260" Name="lbAlbumName" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextAlignment="Center" Margin="0,8,0,0">Album name</TextBox>
+                        </StackPanel>
+                </Border>
+
+                <Border Grid.Row="1">
+                    <DockPanel LastChildFill="False" VerticalAlignment="Center">
+                        <TextBox Name="tbMp3Path2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" TextAlignment="Center" Margin="10,0,0,0">Pick album picture</TextBox>
+                        <Button Name="btSelectMp32" Click="btSelectMp32_Click" DockPanel.Dock="Right" Margin="0,0,10,0" Padding="4" Height="24" FontSize="12">Browse</Button>
+                    </DockPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="3" BorderThickness="0,0,0,2" BorderBrush="DarkGray">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#2e154c" Offset="0" />
+                    <GradientStop Color="#3b1b64" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Button HorizontalAlignment="Center" Name="btSave" Click="btSave_Click" Padding="10,2,10,4"  Height="24" VerticalAlignment="Center">Save</Button>
+        </Border>
+    </Grid>
+</Window>
+

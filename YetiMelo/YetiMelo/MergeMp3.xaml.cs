@@ -87,5 +87,10 @@ namespace YetiMelo
             return fbd2.FileName;
         }
 
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left) this.DragMove();
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace YetiMelo.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        //public virtual DbSet<Folders> FoldersSet { get; set; }
-        //public virtual DbSet<Settings> SettingsSet { get; set; }
+        public virtual DbSet<Folders> FoldersSet { get; set; }
+        public virtual DbSet<Settings> SettingsSet { get; set; }
     }
 }

@@ -15,34 +15,43 @@ using System.Windows.Shapes;
 namespace YetiMelo
 {
     /// <summary>
-    /// Interaction logic for RemoveFolder.xaml
+    /// Interaction logic for EditMp3Album.xaml
     /// </summary>
-    public partial class RemoveFolder : Window
+    public partial class EditMp3Album : Window
     {
-        public RemoveFolder()
+        public string filePath;
+
+        public EditMp3Album(string path)
         {
             InitializeComponent();
-            FillFolders();
+            this.filePath = path;
+            InitLabels();
         }
 
-        private void FillFolders()
-        {
-            ///please insert here to loader query
-        }
 
-        private void btRemoveFolder_Click(object sender, RoutedEventArgs e)
+        public void InitLabels()
         {
-            ///please insert here the removing logic
+
         }
 
         private void btClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+
+        }
+
+        private void btSelectMp32_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btSave_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left) this.DragMove();
+
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YetiMelo"
         mc:Ignorable="d"
-        Title="Settings" Height="300" Width="300" ResizeMode="NoResize" HorizontalAlignment="Center" HorizontalContentAlignment="Center" WindowStyle="None">
+        Title="Settings" Height="300" Width="300" ResizeMode="NoResize" HorizontalAlignment="Center" HorizontalContentAlignment="Center" WindowStyle="None" MouseDown="Settings_MouseDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"></RowDefinition>
