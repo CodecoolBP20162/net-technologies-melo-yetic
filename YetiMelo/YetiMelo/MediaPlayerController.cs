@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace YetiMelo
@@ -117,6 +119,14 @@ namespace YetiMelo
                 Player.PlayButton.Visibility = Visibility.Visible;
                 Player.PauseButton.Visibility = Visibility.Collapsed;
                 Player.statusBar.Visibility = Visibility.Visible;
+                Player.PlayerBorder.Visibility = Visibility.Visible;
+                Player.ImageBorder.Visibility = Visibility.Collapsed;
+                if (IsItMusic())
+                {
+                    Player.PlayerBorder.Visibility = Visibility.Collapsed;
+                    Player.ImageBorder.Visibility = Visibility.Visible;
+                    ChangePictureForCoverArt();
+                }
             }
             else
             {
@@ -136,6 +146,8 @@ namespace YetiMelo
                 Player.PlayButton.Visibility = Visibility.Collapsed;
                 Player.PauseButton.Visibility = Visibility.Collapsed;
                 Player.statusBar.Visibility = Visibility.Collapsed;
+                Player.PlayerBorder.Visibility = Visibility.Visible;
+                Player.ImageBorder.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -148,35 +160,83 @@ namespace YetiMelo
 
         internal bool IsItVideo()
         {
-            if (Media.HasAudio && Media.HasVideo)
+
+            List<string> vidext = new List<string> { ".avi", ".mkv", ".mp4" };
+
+            if (vidext.Contains(System.IO.Path.GetExtension(FileList[PlayPosition]).ToLower()))
                 return true;
             return false;
         }
 
         internal bool IsItMusic()
         {
-            if (Media.HasAudio && !Media.HasVideo)
+            List<string> music = new List<string> { ".mp3", ".wav", ".mid" };
+            if (music.Contains(System.IO.Path.GetExtension(FileList[PlayPosition]).ToLower()))
                 return true;
             return false;
         }
 
-        internal bool IsItPicture(string path)
+        internal bool IsItPicture()
         {
             List<string> pictext = new List<string> { ".jpg", ".bmp", ".png" };
-            if (pictext.Contains(System.IO.Path.GetExtension(path).ToLower()))
+            if (pictext.Contains(System.IO.Path.GetExtension(FileList[PlayPosition]).ToLower()))
                 return true;
             return false;
         }
 
         internal void HideOrShowButtons(string path)
         {
-            if (IsItPicture(path))
+            if (IsItPicture())
             {
                 TurnOffSoundAndVideoOptions();
             }
             else
             {
                 TurnOnSoundAndVideoOptions();
+            }
+        }
+
+        internal void ChangePictureForCoverArt()
+        {
+            try
+            { 
+                TagLib.File file = TagLib.File.Create(FileList[PlayPosition]);
+
+                // Load you image data in MemoryStream
+                TagLib.IPicture pic = file.Tag.Pictures[0];
+                MemoryStream ms = new MemoryStream(pic.Data.Data);
+                ms.Seek(0, SeekOrigin.Begin);
+
+                // ImageSource for System.Windows.Controls.Image
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.StreamSource = ms;
+                bitmap.EndInit();
+
+                // Create a System.Windows.Controls.Image control
+                System.Windows.Controls.Image img = new System.Windows.Controls.Image();
+                img.Source = bitmap;
+                if(MainForm != null)
+                {
+                    MainForm.PictureForMusic.Source = img.Source;
+                }
+                else
+                {
+                    Player.PictureForMusic.Source = img.Source;
+                }
+
+            }
+            catch (Exception e)
+            {
+                if (MainForm != null)
+                {
+                    MainForm.PictureForMusic.Source = MainForm.logo.Source;
+                }
+                else
+                {
+                    Player.PictureForMusic.Source = Player.logo.Source;
+                }
+
             }
         }
     }

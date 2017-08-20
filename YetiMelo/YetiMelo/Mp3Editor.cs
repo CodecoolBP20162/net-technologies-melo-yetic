@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using NAudio.Wave;
 using System.IO;
 
-namespace Yetic_MeLo
+namespace YetiMelo
 {
     public class Mp3Editor
     {
 
         //inputPath="..\\..\\mp3\\Radiorama - Yeti (album version).mp3"
         //outputPath="..\\..\\mp3\\test.mp3"
-        public static Boolean Mp3Trim(string inputPath, string outputPath, TimeSpan? begin, TimeSpan? end)
+        public static void Mp3Trim(string inputPath, string outputPath, TimeSpan? begin, TimeSpan? end)
         {
             if (begin.HasValue && end.HasValue && begin > end)
                 throw new ArgumentOutOfRangeException("end", "end should be greater than begin");
@@ -30,20 +30,16 @@ namespace Yetic_MeLo
                         else break;
                     }
             }
-            return true; //only for clearer testing, the method can be void
         }
 
         //mp3Files should contain the path too
-        public static Boolean Mp3Concat(string[] mp3Files, string OutputFile)
+        public static void Mp3Concat(string[] mp3Files, string OutputFile)
         {
             using (var w = new BinaryWriter(File.Create(OutputFile)))
             {
                 new List<string>(mp3Files).ForEach(f => w.Write(File.ReadAllBytes(f)));
             }
-            return true; //only for clearer testing, the method can be void
         }
-
-
 
     }
 }

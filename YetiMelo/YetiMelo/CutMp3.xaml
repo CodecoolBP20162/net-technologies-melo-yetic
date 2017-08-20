@@ -44,7 +44,7 @@
 
                 <Border Grid.Row="0">
                     <DockPanel LastChildFill="False">
-                        <TextBox Name="tbMp3Path" HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" TextAlignment="Center" Margin="10,0,0,0">Select mp3 path</TextBox>
+                        <TextBox Name="tbMp3Path" IsReadOnly = "True" HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" TextAlignment="Center" Margin="10,0,0,0">Select mp3 path</TextBox>
                       <Button Name="btSelectMp3" Click="btSelectMp3_Click" DockPanel.Dock="Right" Margin="0,0,10,0" Padding="4" Height="24" FontSize="12">Select</Button>
                     </DockPanel>
                 </Border>
@@ -52,21 +52,21 @@
                 <Border Grid.Row="1">
                     <DockPanel LastChildFill="False" VerticalAlignment="Center">
                         <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,0,0"> Cut from:</TextBlock>
-                        <TextBox DockPanel.Dock="Left" Margin="10,0,10,0" Padding="0" Height="24" FontSize="10" Foreground="DarkGray">Select</TextBox>
-                        <TextBox DockPanel.Dock="Right" Padding="0" Height="24" FontSize="10" Foreground="DarkGray" Margin="10,0,20,0">Select</TextBox>
+                        <TextBox Name="tbCutFrom" MinWidth="10" DockPanel.Dock="Left" Margin="10,0,10,0" Padding="0" Height="24" FontSize="10" Foreground="DarkGray" GotFocus="tbCutFrom_GotFocus">Select</TextBox>
+                        <TextBox Name="tbCutTo" MinWidth="10" DockPanel.Dock="Right" Padding="0" Height="24" FontSize="10" Foreground="DarkGray" Margin="10,0,20,0" GotFocus="tbCutTo_GotFocus">Select</TextBox>
                         <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Center"> Cut to:</TextBlock>
                     </DockPanel>
                 </Border>
 
                 <Border Grid.Row="2">
                     <DockPanel LastChildFill="False" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBox DockPanel.Dock="Right" Margin="10,0,10,0" Padding="0" Height="24" FontSize="10" Foreground="DarkGray">Please enter the new file's name</TextBox>
+                        <TextBox Name="tbNewFileName" MinWidth="100" DockPanel.Dock="Right" Margin="10,0,10,0" Padding="0" Height="24" FontSize="10" Foreground="DarkGray" GotFocus="tbNewFileName_GotFocus">Please enter the new file's name</TextBox>
                     </DockPanel>
                 </Border>
 
                 <Border Grid.Row="3">
                     <DockPanel LastChildFill="False">
-                        <TextBox Name="tbDestinationPath" HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" TextAlignment="Center" Margin="10,0,0,0">Select destination folder</TextBox>
+                        <TextBox Name="tbDestinationPath" IsReadOnly = "True" HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" TextAlignment="Center" Margin="10,0,0,0">Select destination folder</TextBox>
                         <Button Name="btSelectDesitnation" Click="btSelectDesitnation_Click"  DockPanel.Dock="Right" Margin="0,0,10,0" Padding="4" Height="24" FontSize="12">Select</Button>
                     </DockPanel>
                 </Border>
