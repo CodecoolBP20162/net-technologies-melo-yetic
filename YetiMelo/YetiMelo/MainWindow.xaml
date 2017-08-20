@@ -38,11 +38,11 @@
             <Border Grid.Row="0">
                 <DockPanel LastChildFill="False" >
                     <Border BorderBrush="#2f2929" BorderThickness="2,0,0,0"></Border>
-                    <TextBox Padding="-1" VerticalAlignment="Center" Margin="4,2"  TextWrapping="Wrap" Text="Search" Width="120" Foreground="DarkGray" TextAlignment="Center"/>
-                    <Button DockPanel.Dock="Left" Padding="4" Margin="8,1">Search</Button>
-                    <CheckBox DockPanel.Dock="Right" Margin="4,2,10,2" VerticalAlignment="Center" >Music</CheckBox>
-                    <CheckBox DockPanel.Dock="Right" Margin="4,2,6,2"  VerticalAlignment="Center" >Video</CheckBox>
-                    <CheckBox DockPanel.Dock="Right" Margin="4,2,6,2"  VerticalAlignment="Center" >Image</CheckBox>
+                    <TextBox Padding="-1" Name="tbSearch" GotFocus="tbSearch_GotFocus" VerticalAlignment="Center" Margin="4,2"  TextWrapping="Wrap" Text="Search" Width="100" Foreground="DarkGray" TextAlignment="Center"/>
+                    <Button Name="btnSearch" DockPanel.Dock="Left" Padding="4" Margin="8,1" Click="btnSearch_Click">Search</Button>
+                    <CheckBox DockPanel.Dock="Right" Margin="4,2,10,2" VerticalAlignment="Center" Name="cbSong" Checked="cbSong_Checked" Unchecked="cbSong_Unchecked">Music</CheckBox>
+                    <CheckBox DockPanel.Dock="Right" Margin="4,2,6,2"  VerticalAlignment="Center" Name="cbVid" Checked="cbVid_Checked" Unchecked="cbVid_Unchecked">Video</CheckBox>
+                    <CheckBox DockPanel.Dock="Right" Margin="4,2,6,2"  VerticalAlignment="Center" Name="cbImg" Checked="cbImg_Checked" Unchecked="cbImg_Unchecked">Image</CheckBox>
                 </DockPanel>
             </Border>
             <Border Grid.Row="1" BorderBrush="#2f2929" BorderThickness="2,0,0,0">

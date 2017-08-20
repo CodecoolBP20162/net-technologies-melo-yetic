@@ -27,40 +27,84 @@ namespace YetiMelo
 
         private void btTrimFile_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (CheckNumber() && InputCheck.Trimmable(tbMp3Path.Text, tbNewFileName.Text, tbDestinationPath.Text))
+            //if (CheckNumber() && InputCheck.Trimmable(tbMp3Path.Text, tbNewFileName.Text, tbDestinationPath.Text, Convert.ToSingle(tbCutFrom.Text), Convert.ToSingle(tbCutTo.Text)))
+            {
+                try
+                {
+                    string NewMp3 = tbDestinationPath.Text + "\\" + InputCheck.CreateMp3Format(tbNewFileName.Text);
+                    Mp3Editor.Mp3Trim(tbMp3Path.Text, NewMp3, TimeSpan.FromMinutes(Convert.ToSingle(tbCutFrom.Text)), TimeSpan.FromMinutes(Convert.ToSingle(tbCutTo.Text)));
+                    System.Windows.MessageBox.Show("The trim was successful.");
+                    this.Close();
+                }
+                catch(ArgumentOutOfRangeException)
+                {
+                    System.Windows.MessageBox.Show("The end should be greater than begin.");
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Please fill in everything.");
+            }
+        }
+
+        private Boolean CheckNumber()
+        {
+            if (!InputCheck.IsNumber(tbCutFrom.Text))
+            {
+                System.Windows.MessageBox.Show("Please use a number.");
+                return false;
+            }
+            if (!InputCheck.IsNumber(tbCutTo.Text))
+            {
+                System.Windows.MessageBox.Show("Please use a number.");
+                return false;
+            }
+            return true;
         }
 
         private void btClose_Click(object sender, RoutedEventArgs e)
         {
-            //insert logic here
+            this.Close();
         }
 
         private void btSelectMp3_Click(object sender, RoutedEventArgs e)
         {
-            using (var fbd = new OpenFileDialog())
+            OpenFileDialog fbd = new OpenFileDialog();
+            fbd.ShowDialog();
+            while (!InputCheck.Mp3Format(fbd.FileName))
             {
-                DialogResult result = fbd.ShowDialog();
-
-                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.FileName))
-                {
-                    tbMp3Path.Text = fbd.FileName;
-                }
+                System.Windows.MessageBox.Show("Please choose an mp3 file.");
+                fbd.ShowDialog();
             }
+            tbMp3Path.Text = fbd.FileName;
         }
 
         private void btSelectDesitnation_Click(object sender, RoutedEventArgs e)
         {
-
-            using (var fbd = new FolderBrowserDialog())
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.ShowDialog();
+            while (fbd.SelectedPath=="")
             {
-                DialogResult result = fbd.ShowDialog();
-
-                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    tbDestinationPath.Text = fbd.SelectedPath;
-                }
+                System.Windows.MessageBox.Show("Please choose a folder.");
+                fbd.ShowDialog();
             }
+            tbDestinationPath.Text = fbd.SelectedPath;
+        }
 
+        private void tbCutFrom_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbCutFrom.Text = "";
+        }
+
+        private void tbCutTo_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbCutTo.Text = "";
+        }
+
+        private void tbNewFileName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbNewFileName.Text = "";
         }
     }
 }
