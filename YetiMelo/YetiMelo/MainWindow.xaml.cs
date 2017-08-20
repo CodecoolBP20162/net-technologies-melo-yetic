@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -41,7 +42,7 @@ namespace YetiMelo
 
         private void GetFilesFromFolders()
         {
-            List<string> folders = new List<string> { "E:\\Test" };//need query form DB
+            List<string> folders = new List<string> { "C:\\Users\\Dodo\\Desktop\\test" };//need query form DB
             List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", };//need query form DB
             FilesFromFolders = scanner.GetFiles(folders, AllowedExtensions);
             FillFilesToListView();
@@ -50,7 +51,7 @@ namespace YetiMelo
 
         private void AddFolderWatch(List<string> folders, List<string> AllowedExtensions)
         {
-            watcher.WatchFolder("E:\\Test", AllowedExtensions, this);
+            watcher.WatchFolder("C:\\Users\\Dodo\\Desktop\\test", AllowedExtensions, this);
         }
 
         private void FillFilesToListView()
@@ -238,14 +239,14 @@ namespace YetiMelo
 
         private void cbImg_Checked(object sender, RoutedEventArgs e)
         {
-            List<string> ImgList = Sorter.ImgSorter(FileList);
+            List<string> ImgList = Sorter.ImgSorter(FilesFromFolders);
             if (cbVid.IsChecked ?? true)
             {
-                ImgList = ImgList.Concat(Sorter.VideoSorter(FileList)).ToList();
+                ImgList = ImgList.Concat(Sorter.VideoSorter(FilesFromFolders)).ToList();
             }
             if (cbSong.IsChecked ?? true)
             {
-                ImgList = ImgList.Concat(Sorter.SongSorter(FileList)).ToList();
+                ImgList = ImgList.Concat(Sorter.SongSorter(FilesFromFolders)).ToList();
             }
             DisplayFiles(ImgList);
             
@@ -253,14 +254,14 @@ namespace YetiMelo
 
         private void cbVid_Checked(object sender, RoutedEventArgs e)
         {
-            List<string> VidList = Sorter.VideoSorter(FileList);
+            List<string> VidList = Sorter.VideoSorter(FilesFromFolders);
             if (cbImg.IsChecked ?? true)
             {
-                VidList = VidList.Concat(Sorter.ImgSorter(FileList)).ToList();
+                VidList = VidList.Concat(Sorter.ImgSorter(FilesFromFolders)).ToList();
             }
             if (cbSong.IsChecked ?? true)
             {
-                VidList = VidList.Concat(Sorter.SongSorter(FileList)).ToList();
+                VidList = VidList.Concat(Sorter.SongSorter(FilesFromFolders)).ToList();
             }
             DisplayFiles(VidList);
 
@@ -268,14 +269,14 @@ namespace YetiMelo
 
         private void cbSong_Checked(object sender, RoutedEventArgs e)
         {
-            List<string> SongList = Sorter.SongSorter(FileList);
+            List<string> SongList = Sorter.SongSorter(FilesFromFolders);
             if (cbVid.IsChecked ?? true)
             {
-                SongList = SongList.Concat(Sorter.VideoSorter(FileList)).ToList();
+                SongList = SongList.Concat(Sorter.VideoSorter(FilesFromFolders)).ToList();
             }
             if (cbImg.IsChecked ?? true)
             {
-                SongList = SongList.Concat(Sorter.ImgSorter(FileList)).ToList();
+                SongList = SongList.Concat(Sorter.ImgSorter(FilesFromFolders)).ToList();
             }
             DisplayFiles(SongList);
         }
@@ -311,7 +312,7 @@ namespace YetiMelo
                 }
                 else
                 {
-                    DisplayFiles(FileList);
+                    DisplayFiles(FilesFromFolders);
                 }
             }
         }
@@ -330,7 +331,7 @@ namespace YetiMelo
                 }
                 else
                 {
-                    DisplayFiles(FileList);
+                    DisplayFiles(FilesFromFolders);
                 }
             }
         }
@@ -349,20 +350,21 @@ namespace YetiMelo
                 }
                 else
                 {
-                    DisplayFiles(FileList);
+                    DisplayFiles(FilesFromFolders);
                 }
             }
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            List<string> FoundFiles = Sorter.Search(FileList,tbSearch.Text);
+            List<string> FoundFiles = Sorter.Search(FilesFromFolders, tbSearch.Text);
             DisplayFiles(FoundFiles);
         }
 
         private void tbSearch_GotFocus(object sender, RoutedEventArgs e)
         {
             tbSearch.Text = "";
+        }
 
         private void FileListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
