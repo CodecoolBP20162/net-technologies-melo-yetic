@@ -20,15 +20,21 @@
                 </LinearGradientBrush>
             </Border.Background>
             <DockPanel  Visibility="Visible" Margin="10,2,2,4"  LastChildFill="False" >
+                <Image Name="logo" Source="logo.png" HorizontalAlignment="Left"/>
+                <TextBlock Padding="8,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Segoe UI BOLD"  Foreground="White">YETIC'S MELO</TextBlock>
                 <Button VerticalAlignment="Top" DockPanel.Dock="Right" Name="btClose" Click="closeWindow_Click" Padding="-4" Height="20" Width="20">x</Button>
                 <Button DockPanel.Dock="Right" Name="btResize" Click="btResize_Click" Height="20" Padding="-4" Width="20" VerticalAlignment="Top">⃣</Button>
                 <Button DockPanel.Dock="Right" Name="btPutOnTray" Click="taskBar_Click" Height="20" Padding="-4" Width="20" VerticalAlignment="Top">_</Button>
                 <Label Name="lbHeader" DockPanel.Dock="Left" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center" Content="{Binding ElementName=myMedia, Path=Source}"/>
             </DockPanel>
         </Border>
-
-        <Border Background="#FF15405D" Grid.Row="1">
-            <MediaElement  Name="myMedia" Grid.Row="1" LoadedBehavior = "Manual" MinHeight="100" MinWidth="100" Stretch="Uniform" MouseLeftButtonDown="ToggleMenu"/>
+        <Border Name="ImageBorder" Background="#FF15405D" Grid.Row="1" Visibility="Visible">
+            <Image Name="PictureForMusic"  Grid.Row="1" VerticalAlignment="Center" Source="logo.png" Visibility="Visible"/>
+        </Border>
+        <Border Name="PlayerBorder" Background="#FF15405D" Grid.Row="1" Visibility="Collapsed">
+            <DockPanel>
+                <MediaElement  Name="myMedia" Grid.Row="1" LoadedBehavior = "Manual" MinHeight="100" MinWidth="100" Stretch="Uniform" MouseLeftButtonDown="ToggleMenu"/>
+            </DockPanel>
         </Border>
         <DockPanel Grid.Row="1" x:Name="menuBar" Visibility="Visible" LastChildFill="False" HorizontalAlignment="Center" Width="auto" VerticalAlignment="Bottom">
             <Button DockPanel.Dock="Left" Margin="4"  Name="btnPrev" Click="PlayPrevious" BorderThickness="0" >⏮</Button>

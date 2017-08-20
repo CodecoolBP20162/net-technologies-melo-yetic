@@ -176,9 +176,12 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Border Grid.Row="0">
+                <Border Name="ImageBorder" Grid.Row="0" Visibility="Collapsed">
+                    <Image Name="PictureForMusic"  Grid.Row="1" VerticalAlignment="Center" Source="logo.png" Visibility="Visible"/>
+                </Border>
+                <Border Name="PlayerBorder" Grid.Row="0" Visibility="Visible">
                     <DockPanel>
-                        <MediaElement Name="myMedia" Grid.Row="1" LoadedBehavior = "Manual" Stretch="Uniform" ></MediaElement>
+                        <MediaElement Name="myMedia" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" LoadedBehavior = "Manual" Stretch="Uniform" ></MediaElement>
                     </DockPanel>
                 </Border>
 
@@ -222,7 +225,7 @@
 
         <DockPanel Grid.Column="0" Grid.ColumnSpan="2" LastChildFill="False">
             <DockPanel Margin="10,10,10,10" VerticalAlignment="Center">
-                <Image Source="logo.png"/>
+                <Image Name="logo" Source="logo.png"/>
                 <TextBlock Padding="8,0,0,0" VerticalAlignment="Center" FontFamily="Segoe UI BOLD"  Foreground="White">YETIC'S MELO</TextBlock>
             </DockPanel>
             <Menu DockPanel.Dock="Left" Background="Transparent" VerticalAlignment="Center" Foreground="White" Height="auto">

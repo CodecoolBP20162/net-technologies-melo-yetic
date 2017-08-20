@@ -82,7 +82,8 @@ namespace YetiMelo
 
         private void ChangeMetadataForImg()
         {
-
+            PlayerBorder.Visibility = Visibility.Visible;
+            ImageBorder.Visibility = Visibility.Collapsed;
 
             using (var imageStream = File.OpenRead(FilesFromFolders[selectedIndexListView]))
             {
@@ -98,6 +99,7 @@ namespace YetiMelo
 
         private void ChangeCommonMediaInfo()
         {
+
             CustomFileInfo cs = new CustomFileInfo(FilesFromFolders[selectedIndexListView]);
             lbFileInfo4.Content = cs.creation.ToString();
             lbFileInfo6.Content = cs.modification.ToString();
@@ -107,11 +109,18 @@ namespace YetiMelo
 
         private void ChangeMetadataForVideo()
         {
+            PlayerBorder.Visibility = Visibility.Visible;
+            ImageBorder.Visibility = Visibility.Collapsed;
+
             ///handle fileInfo Changing
         }
 
         private void ChangeMetadataForMusic()
         {
+            PlayerBorder.Visibility = Visibility.Collapsed;
+            ImageBorder.Visibility = Visibility.Visible;
+            MedCont.ChangePictureForCoverArt();
+
             TagLib.File f = TagLib.File.Create(FilesFromFolders[selectedIndexListView], TagLib.ReadStyle.Average);
             var duration = (int)f.Properties.Duration.TotalSeconds;
             TimeSpan time = TimeSpan.FromSeconds(duration);
@@ -224,7 +233,7 @@ namespace YetiMelo
 
         private void FileListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (!MedCont.IsItPicture(FilesFromFolders[selectedIndexListView]))
+            if (!MedCont.IsItPicture())
             {
                 StopPlaying();
             }
