@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Yetic_MeLo.Properties
+namespace YetiMelo.Properties
 {
 
 
