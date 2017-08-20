@@ -31,27 +31,29 @@ namespace YetiMelo
 
         public void InitLabels()
         {
-
+            TagLib.File f = TagLib.File.Create(filePath);
+            lbAlbumName.Text = f.Tag.Album;
+            MessageBox.Show("Succes, bitches!");
+            this.Close();
         }
 
         private void btClose_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
-        private void btSelectMp32_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         private void btSave_Click(object sender, RoutedEventArgs e)
         {
-
+            TagLib.File f = TagLib.File.Create(filePath);
+            f.Tag.Album = lbAlbumName.Text;
+            f.Save();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            if (e.ChangedButton == MouseButton.Left) this.DragMove();
         }
     }
 }

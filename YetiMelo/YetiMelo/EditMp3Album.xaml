@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YetiMelo"
         mc:Ignorable="d"
-        Title="MergeMp3" Height="180" Width="300" WindowStyle="None" MouseDown="Window_MouseDown">
+        Title="MergeMp3" Height="180" Width="300" WindowStyle="None" MouseDown="Window_MouseDown" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
@@ -48,7 +48,7 @@
                 <Border Grid.Row="1">
                     <DockPanel LastChildFill="False" VerticalAlignment="Center">
                         <TextBox Name="tbMp3Path2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" TextAlignment="Center" Margin="10,0,0,0">Pick album picture</TextBox>
-                        <Button Name="btSelectMp32" Click="btSelectMp32_Click" DockPanel.Dock="Right" Margin="0,0,10,0" Padding="4" Height="24" FontSize="12">Browse</Button>
+                        <Button Name="btSelectMp32" DockPanel.Dock="Right" Margin="0,0,10,0" Padding="4" Height="24" FontSize="12">Browse</Button>
                     </DockPanel>
                 </Border>
             </Grid>
