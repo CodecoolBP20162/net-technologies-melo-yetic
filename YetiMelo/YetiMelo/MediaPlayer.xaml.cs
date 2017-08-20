@@ -27,6 +27,7 @@ namespace YetiMelo
         public MediaPlayer()
         {
             InitializeComponent();
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             myMedia.Volume = 100;
 
 
@@ -34,6 +35,7 @@ namespace YetiMelo
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
             timer.Start();
+            
         }
 
         public MediaPlayer(int playListPos, List<string> playL)

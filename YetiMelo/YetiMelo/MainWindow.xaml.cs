@@ -19,6 +19,7 @@ namespace YetiMelo
     {
         int selectedIndexListView = 0;
         List<string> FilesFromFolders;
+        List<string> FilesFromFolders2;
         FolderWatcher watcher;
 
         MediaPlayerController MedCont;
@@ -53,6 +54,7 @@ namespace YetiMelo
             List<string> folders = new List<string> { "D:\\Test" };//need query form DB
             List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", ".avi", ".png" };//need query form DB
             FilesFromFolders = scanner.GetFiles(folders, AllowedExtensions);
+            FilesFromFolders2 = FilesFromFolders;
             FillFilesToListView();
             AddFolderWatch(folders, AllowedExtensions);
         }
@@ -76,10 +78,10 @@ namespace YetiMelo
 
         private void FileListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            selectedIndexListView = FileListView.SelectedIndex;
-            MedCont.PlayPosition = FileListView.SelectedIndex;
-            MedCont.PlayCurrent();
-            ChangeMetadataInfo();
+                selectedIndexListView = FileListView.SelectedIndex;
+                MedCont.PlayPosition = FileListView.SelectedIndex;
+                MedCont.PlayCurrent();
+                ChangeMetadataInfo();
         }
 
         private void ChangeMetadataInfo()
@@ -89,9 +91,12 @@ namespace YetiMelo
             List<string> pictext = new List<string> { ".jpg", ".bmp", ".png" };
             List<string> vidext = new List<string> { ".avi", ".mkv", ".mp4" };
             List<string> music = new List<string> { ".mp3", ".wav", ".mid" };
-            if (pictext.Contains(System.IO.Path.GetExtension(FilesFromFolders[selectedIndexListView]).ToLower())) ChangeMetadataForImg();
-            else if (vidext.Contains(System.IO.Path.GetExtension(FilesFromFolders[selectedIndexListView]).ToLower())) ChangeMetadataForVideo();
-            else if (music.Contains(System.IO.Path.GetExtension(FilesFromFolders[selectedIndexListView]).ToLower())) ChangeMetadataForMusic();
+            try
+            {
+                if (pictext.Contains(System.IO.Path.GetExtension(FilesFromFolders2[selectedIndexListView]).ToLower())) ChangeMetadataForImg();
+                else if (vidext.Contains(System.IO.Path.GetExtension(FilesFromFolders2[selectedIndexListView]).ToLower())) ChangeMetadataForVideo();
+                else if (music.Contains(System.IO.Path.GetExtension(FilesFromFolders2[selectedIndexListView]).ToLower())) ChangeMetadataForMusic();
+            } catch { }
         }
 
         private void ChangeMetadataForImg()
@@ -111,28 +116,35 @@ namespace YetiMelo
                 lbTitle.Content = Path.GetFileName(FilesFromFolders[selectedIndexListView]);
                 lbFileInfoType2.Content = "Resolution: ";
                 lbFileInfo2.Content = width.ToString() + "x" + height.ToString() + " px";
+                lbFileInfo5.Content = "";
+                lbFileInfoType5.Content = "";
             }
         }
 
         private void ChangeCommonMediaInfo()
         {
-
-            CustomFileInfo cs = new CustomFileInfo(FilesFromFolders[selectedIndexListView]);
-            lbFileInfo4.Content = cs.creation.ToString();
-            lbFileInfo6.Content = cs.modification.ToString();
-            lbFileInfo1.Content = cs.FileSize.ToString();
-            lbFileInfo3.Content = cs.extension;
+            try
+            {
+                CustomFileInfo cs = new CustomFileInfo(FilesFromFolders[selectedIndexListView]);
+                lbFileInfo4.Content = cs.creation.ToString();
+                lbFileInfo6.Content = cs.modification.ToString();
+                lbFileInfo1.Content = cs.FileSize.ToString();
+                lbFileInfo3.Content = cs.extension;
+            }
+            catch { }
         }
 
         private void ChangeMetadataForVideo()
         {
             lbFileInfoType2.Content = "Resolution: ";
-            lbFileInfo2.Content = myMedia.NaturalVideoWidth.ToString() + "x" + myMedia.NaturalVideoHeight.ToString() + " px";
+            lbFileInfo2.Content = "no info so far";
             Bitmap bm = new Bitmap(Properties.Resources.video);
             imgMedia.Source = ConvertBitmap(bm);
 
             PlayerBorder.Visibility = Visibility.Visible;
             ImageBorder.Visibility = Visibility.Collapsed;
+            lbFileInfo5.Content = "";
+            lbFileInfoType5.Content = "";
         }
 
         private void ChangeMetadataForMusic()
@@ -347,6 +359,8 @@ namespace YetiMelo
                 CustomFileInfo file = new CustomFileInfo(new FileInfo(item));
                 FileInfoList.Add(file);
             }
+            MedCont = new MediaPlayerController(this, myMedia, FilesToDisplay, 0);
+            FilesFromFolders2 = FilesToDisplay;
             FileListView.ItemsSource = FileInfoList;
         }
 
@@ -431,7 +445,7 @@ namespace YetiMelo
                 StopPlaying();
             }
 
-            MediaPlayer player = new MediaPlayer(selectedIndexListView, FilesFromFolders);
+            MediaPlayer player = new MediaPlayer(selectedIndexListView, FilesFromFolders2);
             player.Show();
 
         }
