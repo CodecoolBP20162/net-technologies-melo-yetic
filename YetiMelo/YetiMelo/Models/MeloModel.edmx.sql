@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/16/2017 23:49:30
--- Generated from EDMX file: C:\Users\Noncsi\Desktop\Sheiwa\C#\net-technologies-melo-yetic\YetiMelo\YetiMelo\Models\MeloModel.edmx
+-- Date Created: 08/20/2017 16:59:58
+-- Generated from EDMX file: D:\CC Projects\C#\net-technologies-melo-yetic\YetiMelo\YetiMelo\Models\MeloModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [MeloDB];
+USE [YetiDB];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -22,6 +22,12 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FoldersSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[FoldersSet];
+GO
+IF OBJECT_ID(N'[dbo].[SettingsSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SettingsSet];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables

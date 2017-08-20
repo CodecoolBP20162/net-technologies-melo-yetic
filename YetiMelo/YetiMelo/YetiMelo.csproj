@@ -52,6 +52,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
@@ -82,6 +83,9 @@
     <Compile Include="CustomFileInfo.cs" />
     <Compile Include="CutMp3.xaml.cs">
       <DependentUpon>CutMp3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditMp3Album.xaml.cs">
+      <DependentUpon>EditMp3Album.xaml</DependentUpon>
     </Compile>
     <Compile Include="EntityManager.cs" />
     <Compile Include="FolderScanner.cs" />
@@ -114,6 +118,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CutMp3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditMp3Album.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -189,6 +197,11 @@
       <LastGenOutput>MeloModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\MeloModel.edmx.sql" />
+    <None Include="Resources\Img\pictures.png" />
+    <None Include="Resources\Img\music.png" />
+    <None Include="Resources\Img\folder-green.png" />
+    <None Include="Resources\Img\video.png" />
+    <None Include="Resources\Img\settings-3-512.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

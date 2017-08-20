@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -26,7 +28,7 @@ namespace YetiMelo
             myMedia.Volume = 100;
             scanner = new FolderScanner();
             watcher = new FolderWatcher();
-
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             Loaded += MyWindow_Loaded;
         }
 
@@ -36,10 +38,16 @@ namespace YetiMelo
             MedCont = new MediaPlayerController(this, myMedia, FilesFromFolders, 0);
         }
 
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
         private void GetFilesFromFolders()
         {
-            List<string> folders = new List<string> { "E:\\Test" };//need query form DB
-            List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", };//need query form DB
+            List<string> folders = new List<string> { "D:\\Test" };//need query form DB
+            List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", ".avi", ".png" };//need query form DB
             FilesFromFolders = scanner.GetFiles(folders, AllowedExtensions);
             FillFilesToListView();
             AddFolderWatch(folders, AllowedExtensions);
@@ -47,7 +55,7 @@ namespace YetiMelo
 
         private void AddFolderWatch(List<string> folders, List<string> AllowedExtensions)
         {
-            watcher.WatchFolder("E:\\Test", AllowedExtensions, this);
+            watcher.WatchFolder("D:\\Test", AllowedExtensions, this);
         }
 
         private void FillFilesToListView()
@@ -71,6 +79,7 @@ namespace YetiMelo
 
         private void ChangeMetadataInfo()
         {
+            HideMp3EditButtons();
             ChangeCommonMediaInfo();
             List<string> pictext = new List<string> { ".jpg", ".bmp", ".png" };
             List<string> vidext = new List<string> { ".avi", ".mkv", ".mp4" };
@@ -82,8 +91,8 @@ namespace YetiMelo
 
         private void ChangeMetadataForImg()
         {
-
-
+            Bitmap bm = new Bitmap(Properties.Resources.pics);
+            imgMedia.Source = ConvertBitmap(bm);
             using (var imageStream = File.OpenRead(FilesFromFolders[selectedIndexListView]))
             {
                 var decoder = BitmapDecoder.Create(imageStream, BitmapCreateOptions.IgnoreColorProfile,
@@ -107,16 +116,49 @@ namespace YetiMelo
 
         private void ChangeMetadataForVideo()
         {
-            ///handle fileInfo Changing
+            lbFileInfoType2.Content = "Resolution: ";
+            lbFileInfo2.Content = myMedia.NaturalVideoWidth.ToString() + "x" + myMedia.NaturalVideoHeight.ToString() + " px";
+            Bitmap bm = new Bitmap(Properties.Resources.video);
+            imgMedia.Source = ConvertBitmap(bm);
+            
         }
 
         private void ChangeMetadataForMusic()
         {
+            Bitmap bm = new Bitmap(Properties.Resources.music);
+            imgMedia.Source = ConvertBitmap(bm);
             TagLib.File f = TagLib.File.Create(FilesFromFolders[selectedIndexListView], TagLib.ReadStyle.Average);
             var duration = (int)f.Properties.Duration.TotalSeconds;
             TimeSpan time = TimeSpan.FromSeconds(duration);
             lbFileInfo2.Content = time.ToString();
             lbFileInfoType2.Content = "Duration: ";
+            lbFileInfoType5.Content = "Album: ";
+            lbFileInfo5.Content = f.Tag.Album;
+            ShowMp3EditButtons();
+        }
+
+        private void ShowMp3EditButtons()
+        {
+            dpnButtons.Visibility = Visibility.Visible;
+            btcutMp3.Visibility = Visibility.Visible;
+            btcutMp3.Click += btCutMp3_Click;
+            btConcatMp3.Visibility = Visibility.Visible;
+            btConcatMp3.Click += btForgeMp3_Click;
+            btChangeAlbum.Visibility = Visibility.Visible;
+            btChangeAlbum.Click += ChangeAlbum_Click;
+        }
+
+        private void ChangeAlbum_Click(Object sender, EventArgs e)
+        {
+            //Microsoft.VisualBasic.Interaction.InputBox("Please enter a new album name" + "Title", "Default Text");
+        }
+
+        private void HideMp3EditButtons()
+        {
+            dpnButtons.Visibility = Visibility.Collapsed;
+            btcutMp3.Visibility = Visibility.Collapsed;
+            btConcatMp3.Visibility = Visibility.Collapsed;
+            btChangeAlbum.Visibility = Visibility.Collapsed;
         }
 
         private void TogglePlay(Object sender, EventArgs e)
@@ -137,6 +179,18 @@ namespace YetiMelo
             MedCont.IsPlaying = false;
             PauseButton.Visibility = Visibility.Collapsed;
             PlayButton.Visibility = Visibility.Visible;
+        }
+
+        public BitmapImage ConvertBitmap(Bitmap src)
+        {
+            MemoryStream ms = new MemoryStream();
+            ((System.Drawing.Bitmap)src).Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            ms.Seek(0, SeekOrigin.Begin);
+            image.StreamSource = ms;
+            image.EndInit();
+            return image;
         }
 
         private void ContinuePlaying()
@@ -231,6 +285,11 @@ namespace YetiMelo
 
             MediaPlayer player = new MediaPlayer(selectedIndexListView, FilesFromFolders);
             player.Show();
+        }
+
+        private void btChangeAlbum_Click(object sender, RoutedEventArgs e)
+        {
+            EditMp3Album em = new EditMp3Album(FilesFromFolders[selectedIndexListView]);
         }
     }
 }

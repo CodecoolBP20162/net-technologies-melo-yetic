@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YetiMelo"
         mc:Ignorable="d"
-        Title="Add_folder" Height="200" Width="300" WindowStyle="None">
+        Title="Add_folder" Height="200" Width="300" WindowStyle="None" MouseDown="Window_MouseDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"></RowDefinition>
