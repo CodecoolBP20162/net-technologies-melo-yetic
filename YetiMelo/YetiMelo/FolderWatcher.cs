@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace YetiMelo
@@ -12,22 +13,16 @@ namespace YetiMelo
     {
         FileSystemWatcher watcher;
         public List<string> AllowedExtensions { get; set; }
-        ListBox NotificationTarget;
-        MainWindow ParentForm;
+        MainWindow MainForm;
+        List<string> Folders;
 
         public FolderWatcher() { }
 
-        public FolderWatcher(ListBox target)
-        {
-            this.NotificationTarget = target;
-        }
-        //might need some info about from the wpf to make notifications from this class
-        public void WatchFolder(string Path, List<string> AllowedExtensions, ListBox NotificationTarget, MainWindow MainForm)
+        public void WatchFolder(string Path, List<string> AllowedExtensions, MainWindow MainForm)
         {
             watcher = new FileSystemWatcher();
-            this.NotificationTarget = NotificationTarget;
             this.AllowedExtensions = AllowedExtensions;
-            this.ParentForm = MainForm;
+            this.MainForm = MainForm;
             watcher.Path = Path;
             watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                          | NotifyFilters.FileName | NotifyFilters.DirectoryName;
@@ -35,6 +30,15 @@ namespace YetiMelo
             watcher.IncludeSubdirectories = true;
             watcher.Created += new FileSystemEventHandler(OnCreated);
             watcher.EnableRaisingEvents = true;
+        }
+
+        public void WatchFolder(List<string> Folders, List<string> AllowedExtensions, MainWindow MainForm)
+        {
+            this.Folders = Folders;
+            foreach (string Path in Folders)
+            {
+                WatchFolder(Path, AllowedExtensions, MainForm);
+            }
         }
 
         private void OnCreated(object sender, FileSystemEventArgs e)
@@ -48,11 +52,11 @@ namespace YetiMelo
             {
                 if (AllowedExtensions.Contains(System.IO.Path.GetExtension(e.FullPath).ToLower()))
                 {
-                    ParentForm.Dispatcher.Invoke((Action)(() =>
+                    MainForm.Dispatcher.Invoke((Action)(() =>
                     {
                         {
-                            //this.NotificationTarget.AppendText(string.Format("File created at: {0}", e.FullPath));
-                            NotificationTarget.Items.Add(string.Format("File created at: {0}", e.FullPath));
+                            Console.WriteLine(string.Format("File created at: {0}", e.FullPath));
+                            MessageBox.Show(string.Format("File created at: {0}", e.FullPath));
                         }
                     }));
                 }

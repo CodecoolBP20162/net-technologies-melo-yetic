@@ -9,26 +9,38 @@ namespace YetiMelo
 {
     class CustomFileInfo
     {
-        public FileInfo File { get; set; }
+        public FileInfo fileInfo { get; set; }
         public string FileSize { get; set; }
+        public DateTime creation;
+        public DateTime modification;
+        public string extension;
         static readonly string[] SizeSuffixes =
                    { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
 
         public CustomFileInfo(FileInfo file)
         {
-            this.File = file;
+            this.fileInfo = file;
             FileSize = getSize();
+        }
+
+        public CustomFileInfo(String path)
+        {
+            this.fileInfo = new FileInfo(path);
+            FileSize = getSize();
+            creation = File.GetCreationTime(path);
+            modification = File.GetLastWriteTime(path);
+            extension = Path.GetExtension(path);
         }
 
         private string getSize()
         {
-            long size = this.File.Length;
+            long size = this.fileInfo.Length;
 
             string strsize = SizeSuffix(size);
             return strsize;
         }
 
-        static string SizeSuffix(long value, int decimalPlaces = 1)
+        internal static string SizeSuffix(long value, int decimalPlaces = 1)
         {
             if (value < 0) { return "-" + SizeSuffix(-value); }
             if (value == 0) { return "0.0 bytes"; }

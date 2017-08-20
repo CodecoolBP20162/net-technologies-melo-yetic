@@ -41,9 +41,9 @@
 
                 <Border Grid.Row="0">
                     <DockPanel LastChildFill="False" HorizontalAlignment="Center">
-                        <CheckBox Name="chkImage" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center"> Image</CheckBox>
-                        <CheckBox Name="chkMusic" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center">Music</CheckBox>
-                        <CheckBox Name="chkVideo" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center">Video</CheckBox>
+                        <CheckBox Name="chkImage" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="True"> Image</CheckBox>
+                        <CheckBox Name="chkMusic" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="True">Music</CheckBox>
+                        <CheckBox Name="chkVideo" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="True">Video</CheckBox>
                     </DockPanel>
                 </Border>
 

@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 
 namespace YetiMelo
@@ -23,117 +14,155 @@ namespace YetiMelo
     /// </summary>
     public partial class MainWindow : Window
     {
-        int selectedIndexListView;
-        List<string> FileList;
+        int selectedIndexListView = 0;
+        List<string> FilesFromFolders;
         FolderWatcher watcher;
 
-        List<string> playList = new List<string>
-        {
-            "C:\\Users\\Dodo\\Desktop\\test\\new.mp3" , "C:\\Users\\Dodo\\Desktop\\test\\Radiorama - Yeti (album version)" , "C:\\Users\\Dodo\\Desktop\\test\\d.mp3",
-            "C:\\Users\\Dodo\\Desktop\\test\\giga.mp3" , "C:\\Users\\Dodo\\Desktop\\test\\extralong.mp3"    
-        };
+        MediaPlayerController MedCont;
+        FolderScanner scanner;
 
-        int playListPosition = 0;
-        bool isPlaying = false;
 
         public MainWindow()
         {
             InitializeComponent();
             myMedia.Volume = 100;
-            InitPlayer();
-
-            FolderScanner scanner = new FolderScanner();
-            List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", ".png"};
-            List<string> folders = new List<string> { "C:\\Users\\Dodo\\Desktop\\test"};
-            FileList = scanner.GetFiles(folders, AllowedExtensions);
-            DisplayFiles(FileList);
-
-
+            scanner = new FolderScanner();
             watcher = new FolderWatcher();
 
+            Loaded += MyWindow_Loaded;
+        }
 
+        private void MyWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            GetFilesFromFolders();
+            MedCont = new MediaPlayerController(this, myMedia, FilesFromFolders, 0);
+        }
+
+
+        private void GetFilesFromFolders()
+        {
+            List<string> folders = new List<string> { "E:\\Test" };//need query form DB
+            List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", };//need query form DB
+            FilesFromFolders = scanner.GetFiles(folders, AllowedExtensions);
+            FillFilesToListView();
+            AddFolderWatch(folders, AllowedExtensions);
+        }
+
+        private void AddFolderWatch(List<string> folders, List<string> AllowedExtensions)
+        {
+            watcher.WatchFolder("E:\\Test", AllowedExtensions, this);
+        }
+
+        private void FillFilesToListView()
+        {
+            List<CustomFileInfo> FileInfoList = new List<CustomFileInfo>();
+            foreach (string item in FilesFromFolders)
+            {
+                CustomFileInfo file = new CustomFileInfo(new FileInfo(item));
+                FileInfoList.Add(file);
+            }
+            FileListView.ItemsSource = FileInfoList;
         }
 
         private void FileListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedIndexListView = FileListView.SelectedIndex;
+            MedCont.PlayPosition = FileListView.SelectedIndex;
+            MedCont.PlayCurrent();
+            ChangeMetadataInfo();
         }
 
-        private void FileListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ChangeMetadataInfo()
         {
-            MediaPlayer player = new MediaPlayer(selectedIndexListView, FileList);
-            player.Show();
-        }
-        
-
-        void UpdatePlayList(List<string> list)
-        {
-            playList = list;
-        }
-
-        void InitPlayer()
-        {
-            myMedia.Source = new Uri(playList[playListPosition], UriKind.Relative);
+            ChangeCommonMediaInfo();
+            List<string> pictext = new List<string> { ".jpg", ".bmp", ".png" };
+            List<string> vidext = new List<string> { ".avi", ".mkv", ".mp4" };
+            List<string> music = new List<string> { ".mp3", ".wav", ".mid" };
+            if (pictext.Contains(System.IO.Path.GetExtension(FilesFromFolders[selectedIndexListView]).ToLower())) ChangeMetadataForImg();
+            else if (vidext.Contains(System.IO.Path.GetExtension(FilesFromFolders[selectedIndexListView]).ToLower())) ChangeMetadataForVideo();
+            else if (music.Contains(System.IO.Path.GetExtension(FilesFromFolders[selectedIndexListView]).ToLower())) ChangeMetadataForMusic();
         }
 
-        void MediaPlay(Object sender, EventArgs e)
+        private void ChangeMetadataForImg()
         {
-            myMedia.Play();
 
-        }
 
-        void TogglePlay(Object sender, EventArgs e)
-        {
-            if (!isPlaying)
+            using (var imageStream = File.OpenRead(FilesFromFolders[selectedIndexListView]))
             {
-                myMedia.Play();
-                isPlaying = true;
-                PlayButton.Visibility = Visibility.Collapsed;
-                PauseButton.Visibility = Visibility.Visible;
+                var decoder = BitmapDecoder.Create(imageStream, BitmapCreateOptions.IgnoreColorProfile,
+                    BitmapCacheOption.Default);
+                var height = decoder.Frames[0].PixelHeight;
+                var width = decoder.Frames[0].PixelWidth;
+                lbTitle.Content = Path.GetFileName(FilesFromFolders[selectedIndexListView]);
+                lbFileInfoType2.Content = "Resolution: ";
+                lbFileInfo2.Content = width.ToString() + "x" + height.ToString() + " px";
+            }
+        }
+
+        private void ChangeCommonMediaInfo()
+        {
+            CustomFileInfo cs = new CustomFileInfo(FilesFromFolders[selectedIndexListView]);
+            lbFileInfo4.Content = cs.creation.ToString();
+            lbFileInfo6.Content = cs.modification.ToString();
+            lbFileInfo1.Content = cs.FileSize.ToString();
+            lbFileInfo3.Content = cs.extension;
+        }
+
+        private void ChangeMetadataForVideo()
+        {
+            ///handle fileInfo Changing
+        }
+
+        private void ChangeMetadataForMusic()
+        {
+            TagLib.File f = TagLib.File.Create(FilesFromFolders[selectedIndexListView], TagLib.ReadStyle.Average);
+            var duration = (int)f.Properties.Duration.TotalSeconds;
+            TimeSpan time = TimeSpan.FromSeconds(duration);
+            lbFileInfo2.Content = time.ToString();
+            lbFileInfoType2.Content = "Duration: ";
+        }
+
+        private void TogglePlay(Object sender, EventArgs e)
+        {
+            if (!MedCont.IsPlaying)
+            {
+                ContinuePlaying();
             }
             else
             {
-                myMedia.Pause();
-                isPlaying = false;
-                PauseButton.Visibility = Visibility.Collapsed;
-                PlayButton.Visibility = Visibility.Visible;
+                StopPlaying();
             }
         }
 
-        void PlayNext(Object sender, EventArgs e)
-        {
-            try
-            {
-                playListPosition++;
-                myMedia.Source = new Uri(playList[playListPosition], UriKind.Relative);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        void PlayPrevious(Object sender, EventArgs e)
-        {
-            try
-            {
-                playListPosition--;
-                myMedia.Source = new Uri(playList[playListPosition], UriKind.Relative);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        void MediaPause(Object sender, EventArgs e)
+        private void StopPlaying()
         {
             myMedia.Pause();
-            //btnPlay.Visibility = Visibility.Visible;
-            //btnPause.Visibility = Visibility.Collapsed;
+            MedCont.IsPlaying = false;
+            PauseButton.Visibility = Visibility.Collapsed;
+            PlayButton.Visibility = Visibility.Visible;
         }
 
-        void MediaMute(Object sender, EventArgs e)
+        private void ContinuePlaying()
+        {
+            myMedia.Play();
+            MedCont.IsPlaying = true;
+            PlayButton.Visibility = Visibility.Collapsed;
+            PauseButton.Visibility = Visibility.Visible;
+        }
+
+        private void PlayNext(Object sender, EventArgs e)
+        {
+            MedCont.PlayNext();
+            FileListView.SelectedIndex++;
+        }
+
+        private void PlayPrevious(Object sender, EventArgs e)
+        {
+            MedCont.PlayPrevious();
+            FileListView.SelectedIndex--;
+        }
+
+        private void MediaMute(Object sender, EventArgs e)
         {
             if (myMedia.Volume == 100)
             {
@@ -165,7 +194,6 @@ namespace YetiMelo
         {
             this.WindowState = WindowState.Minimized;
         }
-        
 
         private void btSettings_Click(object sender, RoutedEventArgs e)
         {
@@ -326,6 +354,17 @@ namespace YetiMelo
         private void tbSearch_GotFocus(object sender, RoutedEventArgs e)
         {
             tbSearch.Text = "";
+
+        private void FileListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (!MedCont.IsItPicture(FilesFromFolders[selectedIndexListView]))
+            {
+                StopPlaying();
+            }
+
+            MediaPlayer player = new MediaPlayer(selectedIndexListView, FilesFromFolders);
+            player.Show();
+
         }
     }
 }

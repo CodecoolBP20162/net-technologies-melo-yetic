@@ -5,35 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YetiMelo"
         mc:Ignorable="d"
-        Title="MediaPlayer" Height="300" Width="300">
+        Title="MediaPlayer" Height="300" Width="300" MinHeight="200" MinWidth="300" WindowStyle="None">
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid Background="#BDC3C7">
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding ElementName=myMedia, Path=Source}"/>
-            <Button HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,10,10,0" Padding="2" Name="closeWindow" Click="closeWindow_Click" Grid.Column="1" Background="Transparent" BorderThickness="0" >X</Button>
-            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,51.6,0" Grid.Column="1" Name="btnFullScreen" Click="fullScreen_Click" Background="Transparent" BorderThickness="0">O</Button>
-            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,51.6,0" Grid.Column="1" Name="btnOriginalScreen" Click="originalScreen_Click" Background="Transparent" BorderThickness="0" Visibility="Hidden">o</Button>
-            <Button HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,7,91.6,0" Grid.Column="1" Name="btnTaskBar" Click="taskBar_Click" Background="Transparent" BorderThickness="0" >_</Button>
-        </Grid>
+        <Border Grid.Row="0">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#2e154c" Offset="0" />
+                    <GradientStop Color="#3b1b64" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <DockPanel  Visibility="Visible" Margin="10,2,2,4"  LastChildFill="False" >
+                <Button VerticalAlignment="Top" DockPanel.Dock="Right" Name="btClose" Click="closeWindow_Click" Padding="-4" Height="20" Width="20">x</Button>
+                <Button DockPanel.Dock="Right" Name="btResize" Click="btResize_Click" Height="20" Padding="-4" Width="20" VerticalAlignment="Top">⃣</Button>
+                <Button DockPanel.Dock="Right" Name="btPutOnTray" Click="taskBar_Click" Height="20" Padding="-4" Width="20" VerticalAlignment="Top">_</Button>
+                <Label Name="lbHeader" DockPanel.Dock="Left" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center" Content="{Binding ElementName=myMedia, Path=Source}"/>
+            </DockPanel>
+        </Border>
 
         <Border Background="#FF15405D" Grid.Row="1">
-            <MediaElement  Name="myMedia" Grid.Row="1"
-            LoadedBehavior = "Manual" MinHeight="100" MinWidth="100" Stretch="Uniform" MouseLeftButtonDown="ToggleMenu"/>
+            <MediaElement  Name="myMedia" Grid.Row="1" LoadedBehavior = "Manual" MinHeight="100" MinWidth="100" Stretch="Uniform" MouseLeftButtonDown="ToggleMenu"/>
         </Border>
-        <StackPanel Grid.Row="1" x:Name="menuBar" Visibility="Visible" Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30, 0,0,0" Name="btnPrev" Click="PlayPrevious" Background="Transparent" BorderThickness="0" >⏮</Button>
-            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30,0,0,0" Name="PlayButton" Click="TogglePlay" Background="Transparent" BorderThickness="0" >▶</Button>
-            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30,0,0,0" Name="PauseButton" Click="TogglePlay" Background="Transparent" BorderThickness="0" Visibility="Collapsed" >⏸</Button>
-            <Button Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30,0,0,0" Name="btnPause" Click="MediaPause" Background="Transparent" BorderThickness="0" >⏩</Button>
-            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20,0,0,0" Name="btnNext" Click="PlayNext" Background="Transparent" BorderThickness="0" >⏩</Button>
-            <Button x:Name="SoundOn" Margin="0,0,10,0" Padding="5" Click="MediaMute" >🔊</Button>
-            <Button x:Name="SoundOff" Margin="0,0,10,0" Padding="5" Click="MediaMute" Visibility="Collapsed" >🔇</Button>
-
-        </StackPanel>
+        <DockPanel Grid.Row="1" x:Name="menuBar" Visibility="Visible" LastChildFill="False" HorizontalAlignment="Center" Width="auto" VerticalAlignment="Bottom">
+            <Button DockPanel.Dock="Left" Margin="4"  Name="btnPrev" Click="PlayPrevious" BorderThickness="0" >⏮</Button>
+            <Button DockPanel.Dock="Left" Margin="4" Name="PlayButton" Click="TogglePlay"  BorderThickness="0" >▶</Button>
+            <Button DockPanel.Dock="Left" Margin="4" Name="PauseButton" Click="TogglePlay" BorderThickness="0" Visibility="Collapsed" >||</Button>
+            <Button DockPanel.Dock="Left" Margin="4" Name="btnNext" Click="PlayNext" BorderThickness="0" >⏩</Button>
+        </DockPanel>
+        <DockPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button DockPanel.Dock="Right" x:Name="SoundOn" Margin="0,0,4,4" Padding="5" Click="MediaMute" >🔊</Button>
+            <Button DockPanel.Dock="Right" x:Name="SoundOff" Margin="0,0,4,4" Padding="5" Click="MediaMute" Visibility="Collapsed" >🔇</Button>
+        </DockPanel>
 
         <StatusBar Grid.Row="2" x:Name="statusBar" Visibility="Visible">
             <StatusBar.ItemsPanel>
