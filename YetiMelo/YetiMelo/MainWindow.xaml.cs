@@ -52,7 +52,7 @@ namespace YetiMelo
         internal void GetFilesFromFolders()
         {
             selectedIndexListView = 0;
-            //List<string> folders = new List<string> { "E:\\Test", "E:\\Test2" };//need query form DB
+            //List<string> folders = new List<string> { "D:\\Test"};//need query form DB
             List<string> folders = PathManager.ReadFromFile();
             List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", ".avi", ".png" };//need query form DB
             FilesFromFolders = null;
@@ -60,6 +60,7 @@ namespace YetiMelo
             FilesFromFolders2 = FilesFromFolders;
             FillFilesToListView();
             AddFolderWatch(AllowedExtensions);
+            MedCont = new MediaPlayerController(this, myMedia, FilesFromFolders, 0);
             PathManager.SaveToFile(folders);
         }
 
@@ -457,6 +458,7 @@ namespace YetiMelo
         private void btChangeAlbum_Click(object sender, RoutedEventArgs e)
         {
             EditMp3Album em = new EditMp3Album(FilesFromFolders[selectedIndexListView]);
+            em.Show();
         }
     }
 }
