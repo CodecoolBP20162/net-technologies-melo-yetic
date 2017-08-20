@@ -52,6 +52,7 @@
                             <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding fileInfo.Name}" />
                             <GridViewColumn Header="Size" Width="Auto"  DisplayMemberBinding="{Binding FileSize}" />
                             <GridViewColumn Header="Extension" Width="Auto" DisplayMemberBinding="{Binding fileInfo.Extension}" />
+                            <GridViewColumn Header="Directory" Width="Auto" DisplayMemberBinding="{Binding fileInfo.DirectoryName}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

@@ -23,10 +23,17 @@ namespace YetiMelo
     {
         public bool save;
         public string newPath;
+        MainWindow MainForm;
 
         public Add_folder()
         {
             InitializeComponent();
+        }
+
+        public Add_folder(MainWindow MainForm)
+        {
+            InitializeComponent();
+            this.MainForm = MainForm;
         }
 
         private void btAddFolder_Click(object sender, RoutedEventArgs e)
@@ -34,7 +41,20 @@ namespace YetiMelo
 
             this.save = true;
 
-            //write the Query here!!
+            List<string> folders = PathManager.ReadFromFile();
+            if (!folders.Contains(tbPath.Text))
+            {
+                folders.Add(tbPath.Text);
+                PathManager.SaveToFile(folders);
+                this.Close();
+                MainForm.FileListView.ItemsSource = null;
+                MainForm.FileListView.Items.Clear();
+                MainForm.GetFilesFromFolders();
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("This folder is already watched");
+            }
         }
 
         private void btClose_Click(object sender, RoutedEventArgs e)

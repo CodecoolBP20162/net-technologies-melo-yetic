@@ -49,19 +49,23 @@ namespace YetiMelo
                 this.DragMove();
         }
 
-        private void GetFilesFromFolders()
+        internal void GetFilesFromFolders()
         {
-            List<string> folders = new List<string> { "D:\\Test" };//need query form DB
+            selectedIndexListView = 0;
+            //List<string> folders = new List<string> { "E:\\Test", "E:\\Test2" };//need query form DB
+            List<string> folders = PathManager.ReadFromFile();
             List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", ".avi", ".png" };//need query form DB
+            FilesFromFolders = null;
             FilesFromFolders = scanner.GetFiles(folders, AllowedExtensions);
             FilesFromFolders2 = FilesFromFolders;
             FillFilesToListView();
-            AddFolderWatch(folders, AllowedExtensions);
+            AddFolderWatch(AllowedExtensions);
+            PathManager.SaveToFile(folders);
         }
 
-        private void AddFolderWatch(List<string> folders, List<string> AllowedExtensions)
+        private void AddFolderWatch(List<string> AllowedExtensions)
         {
-            watcher.WatchFolder("D:\\Test", AllowedExtensions, this);
+            watcher.WatchFolder(PathManager.ReadFromFile(), AllowedExtensions, this);
 
         }
 
@@ -283,13 +287,13 @@ namespace YetiMelo
 
         private void btAddFolder_Click(object sender, RoutedEventArgs e)
         {
-            Add_folder af = new Add_folder();
+            Add_folder af = new Add_folder(this);
             af.Show();
         }
 
         private void btRemoveFolder_Click(object sender, RoutedEventArgs e)
         {
-            RemoveFolder rf = new RemoveFolder();
+            RemoveFolder rf = new RemoveFolder(this);
             rf.Show();
         }
 
@@ -319,7 +323,7 @@ namespace YetiMelo
                 ImgList = ImgList.Concat(Sorter.SongSorter(FilesFromFolders)).ToList();
             }
             DisplayFiles(ImgList);
-            
+
         }
 
         private void cbVid_Checked(object sender, RoutedEventArgs e)
