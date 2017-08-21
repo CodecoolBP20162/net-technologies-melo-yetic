@@ -46,13 +46,11 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.3.0.823, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.2.3.0.823\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
-
     <Reference Include="NAudio, Version=1.8.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.8.2\lib\net35\NAudio.dll</HintPath>
     </Reference>
     <Reference Include="policy.2.0.taglib-sharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
       <HintPath>..\packages\taglib.2.1.0.0\lib\policy.2.0.taglib-sharp.dll</HintPath>
-
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -85,29 +83,27 @@
     <Compile Include="Add folder.xaml.cs">
       <DependentUpon>Add folder.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomFileInfo.cs" />
+    <Compile Include="Support Classes\CustomFileInfo.cs" />
     <Compile Include="CutMp3.xaml.cs">
       <DependentUpon>CutMp3.xaml</DependentUpon>
     </Compile>
     <Compile Include="EditMp3Album.xaml.cs">
       <DependentUpon>EditMp3Album.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EntityManager.cs" />
-    <Compile Include="FolderScanner.cs" />
-    <Compile Include="FolderWatcher.cs" />
-    <Compile Include="InputCheck.cs" />
+    <Compile Include="Support Classes\EntityManager.cs" />
+    <Compile Include="Support Classes\FolderScanner.cs" />
+    <Compile Include="Support Classes\FolderWatcher.cs" />
+    <Compile Include="Support Classes\InputCheck.cs" />
     <Compile Include="MediaPlayer.xaml.cs">
       <DependentUpon>MediaPlayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MediaPlayerController.cs" />
+    <Compile Include="Support Classes\MediaPlayerController.cs" />
     <Compile Include="MergeMp3.xaml.cs">
       <DependentUpon>MergeMp3.xaml</DependentUpon>
     </Compile>
-
-    <Compile Include="Mp3Editor.cs" />
-    <Compile Include="PathManager.cs" />
-    <Compile Include="Playlist.cs" />
-
+    <Compile Include="Support Classes\Mp3Editor.cs" />
+    <Compile Include="Support Classes\PathManager.cs" />
+    <Compile Include="Support Classes\Playlist.cs" />
     <Compile Include="Models\MeloModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -118,14 +114,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MeloModel.edmx</DependentUpon>
     </Compile>
-
     <Compile Include="RemoveFolder.xaml.cs">
       <DependentUpon>RemoveFolder.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sorter.cs" />
+    <Compile Include="Support Classes\Sorter.cs" />
     <Page Include="Add folder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -218,6 +213,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

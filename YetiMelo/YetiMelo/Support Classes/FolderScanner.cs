@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace YetiMelo
 {
     class FolderScanner
     {
-        public List<string> FoundFileList { get; set; }
+        internal List<string> FoundFileList { get; set; }
 
 
         public FolderScanner()
@@ -17,7 +16,7 @@ namespace YetiMelo
             FoundFileList = new List<string>();
         }
 
-        public List<string> GetFiles(string Destination, List<string> AllowedExtensions)
+        internal List<string> GetFiles(string Destination, List<string> AllowedExtensions)
         {
             try
             {
@@ -29,17 +28,23 @@ namespace YetiMelo
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return null;
+                return FoundFileList;
             }
         }
 
-        public List<string> GetFiles(List<string> FolderList, List<string> AllowedExtensions)
+        internal List<string> GetFiles(List<string> FolderList, List<string> AllowedExtensions)
         {
             FoundFileList = new List<string>();
-
-            foreach (string Destination in FolderList)
+            if (FolderList != null)
+            { 
+                foreach (string Destination in FolderList)
+                {
+                    GetFiles(Destination, AllowedExtensions);
+                }
+            }
+            else
             {
-                GetFiles(Destination, AllowedExtensions);
+                MessageBox.Show("Please add folders!");
             }
 
             return FoundFileList;

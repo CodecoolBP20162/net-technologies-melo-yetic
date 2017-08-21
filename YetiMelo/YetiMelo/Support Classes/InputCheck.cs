@@ -39,7 +39,8 @@ namespace YetiMelo
 
         public static Boolean Trimmable(string Path, string NewFile, string Path2)
         {
-            if (Path== "Select mp3 path" || Path=="" || NewFile== "Please enter the new file's name" || NewFile=="" || Path2== "Select destination folder" || Path2=="")
+            if (Path== "Select mp3 path" || Path=="" || NewFile== "Please enter the new file's name" || NewFile=="" ||
+                Path2== "Select destination folder" || Path2=="")
             {
                 return false;
             }
