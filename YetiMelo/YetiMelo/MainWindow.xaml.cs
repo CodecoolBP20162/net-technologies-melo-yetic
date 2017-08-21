@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -17,21 +16,21 @@ namespace YetiMelo
     /// </summary>
     public partial class MainWindow : Window
     {
-        int selectedIndexListView = 0;
+        int SelectedIndexListView = 0;
         List<string> FilesFromFolders;
         List<string> FilesFromFolders2;
-        FolderWatcher watcher;
+        FolderWatcher Watcher;
 
         MediaPlayerController MedCont;
-        FolderScanner scanner;
+        FolderScanner Scanner;
 
 
         public MainWindow()
         {
             InitializeComponent();
             myMedia.Volume = 100;
-            scanner = new FolderScanner();
-            watcher = new FolderWatcher();
+            Scanner = new FolderScanner();
+            Watcher = new FolderWatcher();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             Loaded += MyWindow_Loaded;
         }
@@ -42,7 +41,6 @@ namespace YetiMelo
             MedCont = new MediaPlayerController(this, myMedia, FilesFromFolders, 0);
         }
 
-
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -51,12 +49,11 @@ namespace YetiMelo
 
         internal void GetFilesFromFolders()
         {
-            selectedIndexListView = 0;
-            //List<string> folders = new List<string> { "D:\\Test"};//need query form DB
+            SelectedIndexListView = 0;
             List<string> folders = PathManager.ReadFromFile();
             List<string> AllowedExtensions = new List<string> { ".mp3", ".jpg", ".mp4", ".avi", ".png" };//need query form DB
             FilesFromFolders = null;
-            FilesFromFolders = scanner.GetFiles(folders, AllowedExtensions);
+            FilesFromFolders = Scanner.GetFiles(folders, AllowedExtensions);
             FilesFromFolders2 = FilesFromFolders;
             FillFilesToListView();
             AddFolderWatch(AllowedExtensions);
@@ -66,8 +63,7 @@ namespace YetiMelo
 
         private void AddFolderWatch(List<string> AllowedExtensions)
         {
-            watcher.WatchFolder(PathManager.ReadFromFile(), AllowedExtensions, this);
-
+            Watcher.WatchFolder(PathManager.ReadFromFile(), AllowedExtensions, this);
         }
 
         private void FillFilesToListView()
@@ -83,10 +79,10 @@ namespace YetiMelo
 
         private void FileListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-                selectedIndexListView = FileListView.SelectedIndex;
-                MedCont.PlayPosition = FileListView.SelectedIndex;
-                MedCont.PlayCurrent();
-                ChangeMetadataInfo();
+            SelectedIndexListView = FileListView.SelectedIndex;
+            MedCont.PlayPosition = FileListView.SelectedIndex;
+            MedCont.PlayCurrent();
+            ChangeMetadataInfo();
         }
 
         private void ChangeMetadataInfo()
@@ -98,10 +94,11 @@ namespace YetiMelo
             List<string> music = new List<string> { ".mp3", ".wav", ".mid" };
             try
             {
-                if (pictext.Contains(System.IO.Path.GetExtension(FilesFromFolders2[selectedIndexListView]).ToLower())) ChangeMetadataForImg();
-                else if (vidext.Contains(System.IO.Path.GetExtension(FilesFromFolders2[selectedIndexListView]).ToLower())) ChangeMetadataForVideo();
-                else if (music.Contains(System.IO.Path.GetExtension(FilesFromFolders2[selectedIndexListView]).ToLower())) ChangeMetadataForMusic();
-            } catch { }
+                if (pictext.Contains(System.IO.Path.GetExtension(FilesFromFolders2[SelectedIndexListView]).ToLower())) ChangeMetadataForImg();
+                else if (vidext.Contains(System.IO.Path.GetExtension(FilesFromFolders2[SelectedIndexListView]).ToLower())) ChangeMetadataForVideo();
+                else if (music.Contains(System.IO.Path.GetExtension(FilesFromFolders2[SelectedIndexListView]).ToLower())) ChangeMetadataForMusic();
+            }
+            catch { }
         }
 
         private void ChangeMetadataForImg()
@@ -112,13 +109,12 @@ namespace YetiMelo
             PlayerBorder.Visibility = Visibility.Visible;
             ImageBorder.Visibility = Visibility.Collapsed;
 
-            using (var imageStream = File.OpenRead(FilesFromFolders[selectedIndexListView]))
+            using (var imageStream = File.OpenRead(FilesFromFolders[SelectedIndexListView]))
             {
                 var decoder = BitmapDecoder.Create(imageStream, BitmapCreateOptions.IgnoreColorProfile,
                     BitmapCacheOption.Default);
                 var height = decoder.Frames[0].PixelHeight;
                 var width = decoder.Frames[0].PixelWidth;
-                lbTitle.Content = Path.GetFileName(FilesFromFolders[selectedIndexListView]);
                 lbFileInfoType2.Content = "Resolution: ";
                 lbFileInfo2.Content = width.ToString() + "x" + height.ToString() + " px";
                 lbFileInfo5.Content = "";
@@ -130,9 +126,11 @@ namespace YetiMelo
         {
             try
             {
-                CustomFileInfo cs = new CustomFileInfo(FilesFromFolders[selectedIndexListView]);
-                lbFileInfo4.Content = cs.creation.ToString();
-                lbFileInfo6.Content = cs.modification.ToString();
+
+                lbTitle.Content = Path.GetFileName(FilesFromFolders2[SelectedIndexListView]);
+                CustomFileInfo cs = new CustomFileInfo(FilesFromFolders[SelectedIndexListView]);
+                lbFileInfo4.Content = cs.Creation.ToString();
+                lbFileInfo6.Content = cs.Modification.ToString();
                 lbFileInfo1.Content = cs.FileSize.ToString();
                 lbFileInfo3.Content = cs.extension;
             }
@@ -161,7 +159,7 @@ namespace YetiMelo
             ImageBorder.Visibility = Visibility.Visible;
             MedCont.ChangePictureForCoverArt();
 
-            TagLib.File f = TagLib.File.Create(FilesFromFolders[selectedIndexListView], TagLib.ReadStyle.Average);
+            TagLib.File f = TagLib.File.Create(FilesFromFolders[SelectedIndexListView], TagLib.ReadStyle.Average);
             var duration = (int)f.Properties.Duration.TotalSeconds;
             TimeSpan time = TimeSpan.FromSeconds(duration);
             lbFileInfo2.Content = time.ToString();
@@ -238,13 +236,13 @@ namespace YetiMelo
         private void PlayNext(Object sender, EventArgs e)
         {
             MedCont.PlayNext();
-            FileListView.SelectedIndex++;
+            ++FileListView.SelectedIndex;
         }
 
         private void PlayPrevious(Object sender, EventArgs e)
         {
             MedCont.PlayPrevious();
-            FileListView.SelectedIndex--;
+            --FileListView.SelectedIndex;
         }
 
         private void MediaMute(Object sender, EventArgs e)
@@ -310,8 +308,6 @@ namespace YetiMelo
             mm.Show();
         }
 
-        //NEW
-
         private void cbImg_Checked(object sender, RoutedEventArgs e)
         {
             List<string> ImgList = Sorter.ImgSorter(FilesFromFolders);
@@ -324,7 +320,6 @@ namespace YetiMelo
                 ImgList = ImgList.Concat(Sorter.SongSorter(FilesFromFolders)).ToList();
             }
             DisplayFiles(ImgList);
-
         }
 
         private void cbVid_Checked(object sender, RoutedEventArgs e)
@@ -339,7 +334,6 @@ namespace YetiMelo
                 VidList = VidList.Concat(Sorter.SongSorter(FilesFromFolders)).ToList();
             }
             DisplayFiles(VidList);
-
         }
 
         private void cbSong_Checked(object sender, RoutedEventArgs e)
@@ -450,14 +444,14 @@ namespace YetiMelo
                 StopPlaying();
             }
 
-            MediaPlayer player = new MediaPlayer(selectedIndexListView, FilesFromFolders2);
+            MediaPlayer player = new MediaPlayer(SelectedIndexListView, FilesFromFolders2);
             player.Show();
 
         }
 
         private void btChangeAlbum_Click(object sender, RoutedEventArgs e)
         {
-            EditMp3Album em = new EditMp3Album(FilesFromFolders[selectedIndexListView]);
+            EditMp3Album em = new EditMp3Album(FilesFromFolders[SelectedIndexListView]);
             em.Show();
         }
     }

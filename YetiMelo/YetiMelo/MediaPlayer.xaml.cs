@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace YetiMelo
@@ -75,12 +66,12 @@ namespace YetiMelo
         {
             MedCont.PlayNext();
         }
+
         //event handler for changig the source of the media element to the previous in the list
         void PlayPrevious(Object sender, EventArgs e)
         {
             MedCont.PlayPrevious();
         }
-
 
         //event handler for mute button
         void MediaMute(Object sender, EventArgs e)
@@ -124,7 +115,6 @@ namespace YetiMelo
         {
             userIsDraggingSlider = true;
         }
-
 
         //event handler for handling sliderdrag and changing actual play time
         private void sliProgress_DragCompleted(object sender, DragCompletedEventArgs e)
