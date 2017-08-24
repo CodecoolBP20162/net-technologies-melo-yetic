@@ -18,6 +18,7 @@ namespace YetiMelo
 
         public static string GetPathForSettings(string filename)
         {
+
             string systemPath = System.Environment.
                                  GetFolderPath(
                                      Environment.SpecialFolder.CommonApplicationData
