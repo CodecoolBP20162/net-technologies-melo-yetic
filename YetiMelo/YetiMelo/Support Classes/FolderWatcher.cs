@@ -11,6 +11,7 @@ namespace YetiMelo
         private FileSystemWatcher watcher;
         private MainWindow MainForm;
         private List<string> Folders;
+        private List<string> WatchedFolders = new List<string>();
 
         public FolderWatcher() { }
 
@@ -29,21 +30,25 @@ namespace YetiMelo
                 watcher.Created += new FileSystemEventHandler(OnCreated);
                 watcher.EnableRaisingEvents = true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
-            
+
         }
 
         public void WatchFolder(List<string> Folders, List<string> AllowedExtensions, MainWindow MainForm)
         {
             this.Folders = Folders;
-            if(Folders != null)
-            { 
+            if (Folders != null)
+            {
                 foreach (string Path in Folders)
                 {
-                    WatchFolder(Path, AllowedExtensions, MainForm);
+                    if (!WatchedFolders.Contains(Path))
+                    {
+                        WatchFolder(Path, AllowedExtensions, MainForm);
+                        WatchedFolders.Add(Path);
+                    }
                 }
             }
         }
@@ -59,10 +64,10 @@ namespace YetiMelo
             {
                 if (AllowedExtensions.Contains(System.IO.Path.GetExtension(e.FullPath).ToLower()))
                 {
-
                     MainForm.Dispatcher.Invoke((Action)(() =>
                     {
                         {
+                            Console.WriteLine(string.Format("File created at: {0}", e.FullPath));
                             MessageBox.Show(string.Format("File created at: {0}", e.FullPath));
                             MainForm.GetFilesFromFolders();
                         }
