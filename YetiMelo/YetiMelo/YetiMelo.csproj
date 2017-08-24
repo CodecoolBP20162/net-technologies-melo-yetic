@@ -121,6 +121,7 @@
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Support Classes\Sorter.cs" />
+    <Compile Include="TaglibWrapper.cs" />
     <Page Include="Add folder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

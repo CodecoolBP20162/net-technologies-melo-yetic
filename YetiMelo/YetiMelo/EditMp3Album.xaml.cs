@@ -21,12 +21,13 @@ namespace YetiMelo
     {
         public string filePath;
         public TagLib.File f;
+        private MainWindow mainForm;
 
-        public EditMp3Album(string path)
+        public EditMp3Album(string path, MainWindow MainForm)
         {
             InitializeComponent();
             this.filePath = path;
-
+            this.mainForm = MainForm;
             f = TagLib.File.Create(filePath);
             InitLabels();
         }
@@ -45,11 +46,21 @@ namespace YetiMelo
 
         private void btSave_Click(object sender, RoutedEventArgs e)
         {
-            f.Tag.Album = lbAlbumName.Text;
-            f.Save();
-            MessageBox.Show("Succes, bitches!");
-            this.Close();
+            try
+            {
+                f.Tag.Album = lbAlbumName.Text;
+                f.Save();
+                mainForm.myMedia.Source = new Uri(filePath, UriKind.Relative);
+                MessageBox.Show("Album renamed!");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                this.Close();
+                Console.WriteLine(ex.Message);
         }
+
+    }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
