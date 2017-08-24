@@ -20,21 +20,20 @@ namespace YetiMelo
     public partial class EditMp3Album : Window
     {
         public string filePath;
+        public TagLib.File f;
 
         public EditMp3Album(string path)
         {
             InitializeComponent();
             this.filePath = path;
+
+            f = TagLib.File.Create(filePath);
             InitLabels();
         }
 
 
         public void InitLabels()
         {
-            TagLib.File f = TagLib.File.Create(filePath);
-            lbAlbumName.Text = f.Tag.Album;
-            MessageBox.Show("Succes, bitches!");
-            this.Close();
         }
 
         private void btClose_Click(object sender, RoutedEventArgs e)
@@ -46,9 +45,10 @@ namespace YetiMelo
 
         private void btSave_Click(object sender, RoutedEventArgs e)
         {
-            TagLib.File f = TagLib.File.Create(filePath);
             f.Tag.Album = lbAlbumName.Text;
             f.Save();
+            MessageBox.Show("Succes, bitches!");
+            this.Close();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
