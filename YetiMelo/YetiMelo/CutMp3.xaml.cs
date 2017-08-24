@@ -20,24 +20,43 @@ namespace YetiMelo
     /// </summary>
     public partial class CutMp3 : Window
     {
-        public CutMp3()
+        private static CutMp3 instance;
+
+        private CutMp3()
         {
             InitializeComponent();
+        }
+
+        public static CutMp3 Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new CutMp3();
+                }
+                return instance;
+            }
+        }
+
+        private void ResetWindow()
+        {
+            this.Close();
+            instance = null;
         }
 
         private void btTrimFile_Click(object sender, RoutedEventArgs e)
         {
             if (CheckNumber() && InputCheck.Trimmable(tbMp3Path.Text, tbNewFileName.Text, tbDestinationPath.Text))
-            //if (CheckNumber() && InputCheck.Trimmable(tbMp3Path.Text, tbNewFileName.Text, tbDestinationPath.Text, Convert.ToSingle(tbCutFrom.Text), Convert.ToSingle(tbCutTo.Text)))
             {
                 try
                 {
                     string NewMp3 = tbDestinationPath.Text + "\\" + InputCheck.CreateMp3Format(tbNewFileName.Text);
                     Mp3Editor.Mp3Trim(tbMp3Path.Text, NewMp3, TimeSpan.FromSeconds(Convert.ToInt32(tbCutFrom.Text)), TimeSpan.FromSeconds(Convert.ToInt32(tbCutTo.Text)));
                     System.Windows.MessageBox.Show("The trim was successful.");
-                    this.Close();
+                    ResetWindow();
                 }
-                catch(ArgumentOutOfRangeException)
+                catch (ArgumentOutOfRangeException)
                 {
                     System.Windows.MessageBox.Show("The end should be greater than begin.");
                 }
@@ -65,7 +84,7 @@ namespace YetiMelo
 
         private void btClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            ResetWindow();
         }
 
         private void btSelectMp3_Click(object sender, RoutedEventArgs e)

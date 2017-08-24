@@ -20,14 +20,34 @@ namespace YetiMelo
     /// </summary>
     public partial class MergeMp3 : Window
     {
-        public MergeMp3()
+        private static MergeMp3 instance;
+
+        private MergeMp3()
         {
             InitializeComponent();
         }
 
-        private void btClose_Click(object sender, RoutedEventArgs e)
+        public static MergeMp3 Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new MergeMp3();
+                }
+                return instance;
+            }
+        }
+
+        private void ResetWindow()
         {
             this.Close();
+            instance = null;
+        }
+
+        private void btClose_Click(object sender, RoutedEventArgs e)
+        {
+            ResetWindow();
         }
 
         private void btSelectDesitnation_Click(object sender, RoutedEventArgs e)
@@ -62,7 +82,7 @@ namespace YetiMelo
                 string NewMp3 = tbDestinationPath.Text + "\\" + InputCheck.CreateMp3Format(tbNewFileName.Text);
                 Mp3Editor.Mp3Concat(Mps3Paths, NewMp3);
                 System.Windows.MessageBox.Show("The merging was successfull.");
-                this.Close();
+                ResetWindow();
             }
             else
             {
