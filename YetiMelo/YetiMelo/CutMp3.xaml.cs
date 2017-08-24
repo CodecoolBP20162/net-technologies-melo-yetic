@@ -33,7 +33,7 @@ namespace YetiMelo
                 try
                 {
                     string NewMp3 = tbDestinationPath.Text + "\\" + InputCheck.CreateMp3Format(tbNewFileName.Text);
-                    Mp3Editor.Mp3Trim(tbMp3Path.Text, NewMp3, TimeSpan.FromMinutes(Convert.ToSingle(tbCutFrom.Text)), TimeSpan.FromMinutes(Convert.ToSingle(tbCutTo.Text)));
+                    Mp3Editor.Mp3Trim(tbMp3Path.Text, NewMp3, TimeSpan.FromSeconds(Convert.ToInt32(tbCutFrom.Text)), TimeSpan.FromSeconds(Convert.ToInt32(tbCutTo.Text)));
                     System.Windows.MessageBox.Show("The trim was successful.");
                     this.Close();
                 }
