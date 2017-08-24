@@ -33,7 +33,6 @@ namespace YetiMelo
         {
             InitializeComponent();
             myMedia.Source = new Uri(playL[playListPos], UriKind.Relative);
-            myMedia.Play();
 
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);

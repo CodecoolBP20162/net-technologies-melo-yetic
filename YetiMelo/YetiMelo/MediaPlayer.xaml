@@ -28,18 +28,18 @@
                 <Label Name="lbHeader" DockPanel.Dock="Left" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center" Content="{Binding ElementName=myMedia, Path=Source}"/>
             </DockPanel>
         </Border>
-        <Border Name="ImageBorder" Background="#FF15405D" Grid.Row="1" Visibility="Visible">
+        <Border Name="ImageBorder" Background="#2f2929" Grid.Row="1" Visibility="Visible">
             <Image Name="PictureForMusic"  Grid.Row="1" VerticalAlignment="Center" Source="logo.png" Visibility="Visible"/>
         </Border>
-        <Border Name="PlayerBorder" Background="#FF15405D" Grid.Row="1" Visibility="Collapsed">
+        <Border Name="PlayerBorder" Background="#2f2929" Grid.Row="1" Visibility="Collapsed">
             <DockPanel>
                 <MediaElement  Name="myMedia" Grid.Row="1" LoadedBehavior = "Manual" MinHeight="100" MinWidth="100" Stretch="Uniform" MouseLeftButtonDown="ToggleMenu"/>
             </DockPanel>
         </Border>
         <DockPanel Grid.Row="1" x:Name="menuBar" Visibility="Visible" LastChildFill="False" HorizontalAlignment="Center" Width="auto" VerticalAlignment="Bottom">
             <Button DockPanel.Dock="Left" Margin="4"  Name="btnPrev" Click="PlayPrevious" BorderThickness="0" >⏮</Button>
-            <Button DockPanel.Dock="Left" Margin="4" Name="PlayButton" Click="TogglePlay"  BorderThickness="0" >▶</Button>
-            <Button DockPanel.Dock="Left" Margin="4" Name="PauseButton" Click="TogglePlay" BorderThickness="0" Visibility="Collapsed" >||</Button>
+            <Button DockPanel.Dock="Left" Margin="4" Name="PlayButton" Click="TogglePlay"  BorderThickness="0" Visibility="Collapsed" >▶</Button>
+            <Button DockPanel.Dock="Left" Margin="4" Name="PauseButton" Click="TogglePlay" BorderThickness="0" >||</Button>
             <Button DockPanel.Dock="Left" Margin="4" Name="btnNext" Click="PlayNext" BorderThickness="0" >⏩</Button>
         </DockPanel>
         <DockPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">

@@ -111,9 +111,9 @@ namespace YetiMelo
             if (Player != null)
             {
                 Media.Play();
-                IsPlaying = false;
-                Player.PlayButton.Visibility = Visibility.Visible;
-                Player.PauseButton.Visibility = Visibility.Collapsed;
+                IsPlaying = true;
+                Player.PlayButton.Visibility = Visibility.Collapsed;
+                Player.PauseButton.Visibility = Visibility.Visible;
                 Player.statusBar.Visibility = Visibility.Visible;
                 Player.PlayerBorder.Visibility = Visibility.Visible;
                 Player.ImageBorder.Visibility = Visibility.Collapsed;
