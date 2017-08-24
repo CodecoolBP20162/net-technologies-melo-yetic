@@ -14,15 +14,17 @@ namespace YetiMelo
         static public string MusicSettingPath = GetPathForSettings("Music.txt");
         static public string PictureSettingPath = GetPathForSettings("Pictures.txt");
         static public string watchedFoldersSettingPath = GetPathForSettings("WatchedFolders.txt");
+        //C:\Users\Dodo\Desktop\test
 
 
         public static string GetPathForSettings(string filename)
         {
 
-            string systemPath = System.Environment.
+            /*string systemPath = System.Environment.
                                  GetFolderPath(
                                      Environment.SpecialFolder.CommonApplicationData
-                                 );
+                                 );*/
+            string systemPath = "C:\\Users\\Dodo\\Desktop\\test";
             string complete = Path.Combine(systemPath, filename);
 
             return complete;
