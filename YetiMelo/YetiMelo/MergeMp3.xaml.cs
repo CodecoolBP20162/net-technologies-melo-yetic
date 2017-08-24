@@ -77,7 +77,6 @@ namespace YetiMelo
         {
             if (InputCheck.Mergable(tbMp3Path.Text, tbMp3Path2.Text, tbNewFileName.Text, tbDestinationPath.Text))
             {
-                //actual thinggy hereee
                 string[] Mps3Paths = new string[] { tbMp3Path.Text, tbMp3Path2.Text };
                 string NewMp3 = tbDestinationPath.Text + "\\" + InputCheck.CreateMp3Format(tbNewFileName.Text);
                 Mp3Editor.Mp3Concat(Mps3Paths, NewMp3);

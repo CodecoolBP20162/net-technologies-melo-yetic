@@ -22,8 +22,9 @@ namespace YetiMelo
         public string filePath;
         public TagLib.File f;
         private MainWindow mainForm;
+        private static EditMp3Album instance;
 
-        public EditMp3Album(string path, MainWindow MainForm)
+        private EditMp3Album(string path, MainWindow MainForm)
         {
             InitializeComponent();
             this.filePath = path;
@@ -32,6 +33,21 @@ namespace YetiMelo
             InitLabels();
         }
 
+        public static EditMp3Album getInstance(string path, MainWindow MainForm)
+        {
+            if (instance == null)
+            {
+                instance = new EditMp3Album(path, MainForm);
+            }
+            return instance;
+            
+        }
+
+        private void ResetWindow()
+        {
+            this.Close();
+            instance = null;
+        }
 
         public void InitLabels()
         {
@@ -39,10 +55,8 @@ namespace YetiMelo
 
         private void btClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            ResetWindow();
         }
-
-        
 
         private void btSave_Click(object sender, RoutedEventArgs e)
         {
@@ -52,11 +66,11 @@ namespace YetiMelo
                 f.Save();
                 mainForm.myMedia.Source = new Uri(filePath, UriKind.Relative);
                 MessageBox.Show("Album renamed!");
-                this.Close();
+                ResetWindow();
             }
             catch (Exception ex)
             {
-                this.Close();
+                ResetWindow();
                 Console.WriteLine(ex.Message);
         }
 

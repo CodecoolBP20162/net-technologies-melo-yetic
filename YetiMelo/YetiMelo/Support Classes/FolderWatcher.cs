@@ -59,10 +59,10 @@ namespace YetiMelo
             {
                 if (AllowedExtensions.Contains(System.IO.Path.GetExtension(e.FullPath).ToLower()))
                 {
+
                     MainForm.Dispatcher.Invoke((Action)(() =>
                     {
                         {
-                            Console.WriteLine(string.Format("File created at: {0}", e.FullPath));
                             MessageBox.Show(string.Format("File created at: {0}", e.FullPath));
                             MainForm.GetFilesFromFolders();
                         }

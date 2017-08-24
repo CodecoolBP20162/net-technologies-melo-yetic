@@ -41,8 +41,8 @@ namespace YetiMelo
 
         private void ResetWindow()
         {
-            this.Close();
             instance = null;
+            this.Close();
         }
 
         private void btTrimFile_Click(object sender, RoutedEventArgs e)

@@ -450,7 +450,7 @@ namespace YetiMelo
 
         private void btChangeAlbum_Click(object sender, RoutedEventArgs e)
         {
-            EditMp3Album em = new EditMp3Album(FilesFromFolders[SelectedIndexListView], this);
+            EditMp3Album em = EditMp3Album.getInstance(FilesFromFolders[SelectedIndexListView], this);
             StopPlaying();
             myMedia.Source = null;
             em.Show();
