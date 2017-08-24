@@ -16,7 +16,7 @@ namespace YetiMelo
     /// </summary>
     public partial class MainWindow : Window
     {
-        int SelectedIndexListView = 0;
+        internal int SelectedIndexListView = 0;
         List<string> FilesFromFolders;
         List<string> FilesFromFolders2;
         FolderWatcher Watcher;
@@ -85,7 +85,7 @@ namespace YetiMelo
             ChangeMetadataInfo();
         }
 
-        private void ChangeMetadataInfo()
+        internal void ChangeMetadataInfo()
         {
             HideMp3EditButtons();
             ChangeCommonMediaInfo();
@@ -158,15 +158,14 @@ namespace YetiMelo
             PlayerBorder.Visibility = Visibility.Collapsed;
             ImageBorder.Visibility = Visibility.Visible;
             MedCont.ChangePictureForCoverArt();
-
-            TagLib.File f = TagLib.File.Create(FilesFromFolders[SelectedIndexListView], TagLib.ReadStyle.Average);
-            var duration = (int)f.Properties.Duration.TotalSeconds;
-            TimeSpan time = TimeSpan.FromSeconds(duration);
-            lbFileInfo2.Content = time.ToString();
+            
+            TaglibWrapper wrap = new TaglibWrapper(FilesFromFolders[SelectedIndexListView]);
+            lbFileInfo2.Content = wrap.time.ToString();
             lbFileInfoType2.Content = "Duration: ";
             lbFileInfoType5.Content = "Album: ";
-            lbFileInfo5.Content = f.Tag.Album;
+            lbFileInfo5.Content = wrap.album;
             ShowMp3EditButtons();
+
         }
 
         private void ShowMp3EditButtons()
@@ -298,13 +297,13 @@ namespace YetiMelo
 
         private void btCutMp3_Click(object sender, RoutedEventArgs e)
         {
-            CutMp3 cm = new CutMp3();
+            CutMp3 cm = CutMp3.Instance;
             cm.Show();
         }
 
         private void btForgeMp3_Click(object sender, RoutedEventArgs e)
         {
-            MergeMp3 mm = new MergeMp3();
+            MergeMp3 mm = MergeMp3.Instance;
             mm.Show();
         }
 
@@ -451,7 +450,9 @@ namespace YetiMelo
 
         private void btChangeAlbum_Click(object sender, RoutedEventArgs e)
         {
-            EditMp3Album em = new EditMp3Album(FilesFromFolders[SelectedIndexListView]);
+            EditMp3Album em = EditMp3Album.getInstance(FilesFromFolders[SelectedIndexListView], this);
+            StopPlaying();
+            myMedia.Source = null;
             em.Show();
         }
     }
